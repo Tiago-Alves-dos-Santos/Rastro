@@ -1,0 +1,51 @@
+@charset "utf-8";
+/*esconder fieldset dos formualrios*/
+#regiration_form fieldset:not(:first-of-type) {
+    display: none;
+  }
+/*modificar msg dialog*/
+.ui-dialog .ui-dialog-titlebar {
+    padding: .4em 1em;
+    position: relative;
+    background-color: rgba(108, 140, 59,1);
+    color: white;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    position: absolute;
+    border:none;
+    background-color: white;
+    right: .3em;
+    top: 50%;
+    width: 20px;
+    margin: -10px 0 0 0;
+    padding: 1px;
+    height: 20px;
+    background-image: url("https://cdn1.iconfinder.com/data/icons/nuove/128x128/actions/fileclose.png");
+    background-size: cover;
+}
+.ui-dialog .ui-dialog-titlebar-close:hover{
+    background-color: red;
+    transition: .5s;
+}
+/*Img de load ajax no botao no envio de formulario*/
+button#load-ajax img{
+    width: 20px;
+    height: 20px;
+    display: none;
+}
+/*Ajuste de foto motorista e foto de veiculo no autocomplete*/
+img.ft-motorista{
+    width: 3cm;
+    height: 4cm;
+}
+img.ft-veiculo{
+    width: 50px;
+    height: 50px;
+}
+/*cor do cabeçalho da tabela*/
+.table .thead-verde th{
+    color: #fff;
+    background-color: rgba(108, 140, 59,1);
+    background-color: rgba(108, 140, 59,1);
+}

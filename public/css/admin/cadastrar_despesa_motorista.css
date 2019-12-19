@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+.ui-menu img{
+    width:3cm;
+    height:4cm;
+}
+.ui-menu li span{
+    font-size:1em;
+    padding:0 0 10px 10px;
+    margin:0 0 10px 0 !important;
+    white-space:nowrap;
+}

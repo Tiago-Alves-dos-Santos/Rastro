@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+/*formulario login*/
+body{
+	background-color: rgba(84, 109, 43,1);
+}
+div.form-body-login{
+	position: relative;
+	width: 724px;
+	background-color: white;
+	border: 1px solid black;
+	border-radius: 10px;
+	box-shadow: 2px 2px 4px black;
+}
+div.form-body{
+	position: relative;
+	box-sizing: border-box;
+	margin-top: 15px;
+	margin-bottom: 10px;
+}

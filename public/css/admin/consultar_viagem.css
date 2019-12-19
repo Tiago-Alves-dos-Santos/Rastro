@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+.p-flex{
+	display: flex;
+	justify-content: flex-end;
+}
+
+
+
+/*reposicionar paginaçoes*/
+@media (max-width: 647px) { 
+    .p-flex{
+		display: flex;
+		justify-content: center;
+	}
+}

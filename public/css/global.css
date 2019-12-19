@@ -1,0 +1,148 @@
+@charset "utf-8";
+*{
+	margin: 0;
+	padding: 0;
+}
+
+/*centraliza verticalemnte*/
+.centralizar-vertical{
+	position: relative;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+}
+/*centraliza horizontalemente*/
+.centralizar-horizontal{
+	position: relative;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+/*centralizar horizontal e vertical*/
+.centralizar-hv{
+	position: relative;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+/*centraliza horizontal e vertical, mas deixa a div cocupando 100% da tela*/
+.centralizar-hv-total{
+	position: absolute;
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-left:0px;
+}
+/*voltar ao inicio*/
+div.inicio{
+	width: 50px;
+	height: 50px;
+	position: fixed;
+	bottom: 15px;
+	right: 15px;
+	z-index: 3;
+}
+div.inicio i{
+	color:rgba(108, 140, 59,1);
+}
+/*fundos*/
+.bg-verde{
+
+}
+/*alteraçoes botoes do bootstrap*/
+.btn-verde{
+	background-color: rgba(108, 140, 59,1);
+	color: white;
+}
+.btn-verde:hover{
+	background-color: rgba(84, 109, 43,1);
+	color: white;
+	transition: 0.3s;
+}
+
+.btn-verde-black{
+    background-color: rgba(64, 89, 46,1);
+    color: white;
+}
+
+.btn-verde-black:hover{
+    background-color: rgba(51, 71, 36,1);
+    color: white;
+    transition: 0.3s;
+}
+
+.btn-orange{
+	background-color: rgba(208, 127, 3,1);
+	color: white;
+}
+.btn-orange:hover{
+	background-color: rgba(183, 111, 3,1);
+	color: white;
+	transition: 0.3s;
+}
+/*configuração das msg de aviso, do tipo fixa*/
+.msg-fixa{
+	position: fixed;
+	box-sizing: border-box;
+	width: 100%;
+	z-index: 3;
+	left: 0;
+	top:0;
+}
+
+/*cor do dia nas homes*/
+.fc-unthemed td.fc-today {
+    background-color: rgba(208, 127, 3,1);
+    color: white;
+}
+/*cor de icones de sumario das homes*/
+ul.sumario li{
+    float: left;
+}
+ul.sumario li{
+    margin: 30px 5px 0 5px;
+}
+li#agendada::before,li#andamento::before,li#concluido::before{
+    content: '';
+    display: inline-block;
+    width: 1em;
+    margin-right: 5px;
+    margin-left: 5px;
+    height: 1em;
+    border: 1px solid black;
+    background-color: #546d2b;
+}
+li#andamento::before{
+    background-color: #006abc;
+}
+li#concluido::before{
+    background-color: #d07f03;
+}
+/*css das paginações*/
+.pagination{
+    /*border:1px solid rgba(108, 140, 59,1);*/
+}
+.page-link{
+    border:1px solid rgba(108, 140, 59,1);
+    color:rgba(108, 140, 59,1);
+}
+.page-link:hover{
+    border:1px solid #d07f03;
+    background-color: #d07f03;
+    color:#fff;
+}
+.page-item.active .page-link {
+    color: #fff;
+    background-color: rgba(108, 140, 59,1);
+    border-color: rgba(108, 140, 59,1);
+}

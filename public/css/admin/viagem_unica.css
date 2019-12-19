@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+h1#titulo{
+    color: #ffffff;
+    background-color: rgba(108, 140, 59,1);
+}
+h2,h3{
+    text-align: center;
+    color: #ffffff;
+    background-color: rgba(108, 140, 59,1);
+}
+h3{
+    background-color: rgb(208, 127, 3);
+}

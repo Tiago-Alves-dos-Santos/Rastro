@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+
+/*cor dos botoes calendario*/
+.fc-button-primary{
+	background-color: rgba(108, 140, 59,1);
+	border: 1px solid rgba(108, 140, 59,1);
+	color: white;
+}
+.fc-button-primary:hover{
+	background-color: rgba(84, 109, 43,1);
+	border: 1px solid rgba(108, 140, 59,1);
+	color: white;
+	transition: 0.3s;
+}
+
+.fc-button-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(84, 109, 43,.5);
+}
+
+.fc-button-primary:disabled {
+  color: #fff;
+  background-color: #2C3E50;
+  border-color: #2C3E50;
+}
+
+.fc-button-primary:not(:disabled):active,
+.fc-button-primary:not(:disabled).fc-button-active {
+  color: #fff;
+  background-color: rgba(84, 109, 43,1);
+  border-color: rgba(84, 109, 43,1);
+}
+.fc-button-primary:not(:disabled):active:focus,
+.fc-button-primary:not(:disabled).fc-button-active:focus {, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(84, 109, 43,.5);
+}
+
+@media (max-width: 421px) { 
+    div.fc-center{
+		font-size: 0.7em;
+	}
+}
+
