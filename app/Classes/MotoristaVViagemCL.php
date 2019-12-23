@@ -118,7 +118,12 @@ class MotoristaVViagemCL
     }
 
 
-
+    /**
+     * Relaiza o cadastro em massa dos ids dos veiculos e motorista participantes de uma viagem
+     * @param $ids_veiculos
+     * @param $ids_motoristas
+     * @param $placas
+     */
     public function cadastrar($ids_veiculos,$ids_motoristas,$placas){
         $motorista_viagem = new MotoristaVViagem();
 
@@ -132,19 +137,19 @@ class MotoristaVViagemCL
         }
     }
 
+    /**
+     * Realiza uma exlusao de todos os motorista e veiculos pertecentes a uma viagem
+     * para depois realizar um cadastro
+     * @param $ids_veiculos
+     * @param $ids_motoristas
+     * @param $placas
+     */
     public function alterar($ids_veiculos,$ids_motoristas,$placas){
         $motorista_viagem = new MotoristaVViagem();
         //desabilitar foreng eys e deletar dados da viagem
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         MotoristaVViagem::where('id_viagem',$this->getViagemCl()->getIdViagem())->forceDelete();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-        for($i= 0; $i < count($ids_veiculos);$i++){
-            MotoristaVViagem::create([
-                "id_veiculo" => $ids_veiculos[$i],
-                "id_motorista" => $ids_motoristas[$i],
-                "placa" => $placas[$i],
-                "id_viagem" => $this->getViagemCl()->getIdViagem()
-            ]);
-        }
+        $this->cadastrar($ids_veiculos,$ids_motoristas,$placas);
     }
 }

@@ -98,6 +98,7 @@
         </div>
     </div>
 </div>
+@include('componentes.rodape')
 @php
     session()->forget('msg');
 @endphp

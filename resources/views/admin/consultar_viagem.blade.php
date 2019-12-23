@@ -158,10 +158,12 @@
                             @endif
                             <a href="{{route('viagem.search',['id' => $viagem->id_viagem])}}" class="btn btn-verde mb-2" style="margin-right: 10px">Mais detalhes</a>
                             @if(session("tipo_usuario") == "administrador")
-                            <input type="button" name="pdf" value="Emitir relatorio" class="btn btn-danger mb-2" id="pdf-viagem" style="margin-right: 10px">
-
+                            <a href="{{route('admin.pdf',['id' => $viagem->id_viagem])}}" target="_blank" class="btn btn-danger mb-2" id="pdf-viagem" style="margin-right: 10px">Ordem de serviço</a>
+                            @endif
+                            @if(session("tipo_usuario") == "administrador" && $viagem->status_viagem != "Concluida")
                             <a href="{{route('alter.viagem',['id' => $viagem->id_viagem])}}" class="btn btn-warning text-light mb-2" class="alterar-viagem">Alterar Viagem</a>
                             @endif
+
 
                         </div>
                     </div>
@@ -210,6 +212,8 @@
         </div>
     </div>
 </div>
+
+@include('componentes.rodape')
 {{--fim do modal cancelamneto de viagem--}}
 @php
     session()->forget('msg');
@@ -221,11 +225,13 @@
 <script src="{{ asset('js/admin/consultar_viagem.js') }}"></script>
 
 <script>
-    //buscar motorista e veiculos
+    //varivel usada para saber se os motoristas e veiculos estao sendo exibidos
     let visible = false;
+    //requisao ajax para ver motoristas de uma viagem
     $(".viagem-motoristas").click(function (e) {
         e.preventDefault();
         let id_viagem =  parseInt($(this).attr('data-viagem'));
+        //caso estejam sendo visto e o usario clicar os motoristas e veiculos iram sumir
         if(visible){
             $("#conteudo-"+id_viagem).html("");
             visible = false;
@@ -233,7 +239,7 @@
             $(this).attr('title','Ver motoristas e veiculos da viagem '+id_viagem);
             return;
         }else{
-            //desver icone
+            //casom os motorisa estejam sendo escondidos iram mostrar
             $(this).html("<i class='fas fa-eye-slash fa-2x'></i>");
             $(this).attr('title','Desver motoristas e veiculos da viagem '+id_viagem);
         }
@@ -271,7 +277,7 @@
         });
 
     })
-
+    //abre o modal realcionado a viagem que foi clicada
     $("a.cancelar_viagem").click(function (e) {
         //data-viagem == id
         //data-dia-viagem == dia
@@ -280,7 +286,7 @@
         $("a#cancelar-viagem").attr('data-viagem', id);
         $("#cancelarViagem").modal('show');
     });
-
+    //realiza o canlamento da viagem por requisiçao
     $("a#cancelar-viagem").click(function (e) {
         e.preventDefault();
         $("#img-cancelar").css('display','inline-block');
@@ -296,6 +302,7 @@
             //parametro 'e' faz referencia ao retorno na pagina citada na url
             success: function (e) {
                 if(e == 1){
+                    //caso viagem cancelada com sucesso, redirecionamos para uma rotina de viagens
                     window.location.href = "{{route('user.rotina.viagem')}}";
                 }else{
                     window.location.reload();

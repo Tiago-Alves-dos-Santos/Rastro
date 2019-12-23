@@ -74,7 +74,7 @@ Route::prefix("/usuario")->group(function(){
     Route::post('/alterar-cliente', "ClienteC@alterar")->name("user.alter.cliente");
     //rotas de filtros de buscas
     Route::any('/filtrar-cliente','ClienteC@filtrar')->name('user.filter.cliente');
-    //rotas emissoes de relatorios
+    Route::get('/sobre-chronos3',function (){return view('usuario.sobre');})->name('user.sobre');
 });
 
 
@@ -104,9 +104,12 @@ Route::prefix("/admin")->group(function(){
     Route::any('/filtrar-motorista', 'MotoristaC@filtrar')->name('admin.filter.motorista');
     Route::any('/filtrar-fornecedor', 'FornecedorC@filtrar')->name('admin.filter.fornecedor');
     Route::any('/filtrar-despesa', 'DespesasC@filtrar')->name('admin.filter.despesa');
-    Route::any('/filtrar-despesa', 'ViagemC@filtrar')->name('admin.filter.viagem');
+    Route::any('/filtrar-viagem', 'ViagemC@filtrar')->name('admin.filter.viagem');
     //rotas emissoes de relatorios
+    Route::get('/ordem-servico-print/{id}','ViagemC@printPdf')->name('admin.pdf');
+    Route::post('/salario-motorista','MotoristaVViagemC@salarioPdf')->name('admin.salario');
+
 
 
 });
-//verficacao de views
+

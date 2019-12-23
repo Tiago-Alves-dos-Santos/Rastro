@@ -263,6 +263,11 @@ class MotoristaCL
         return $motorista;
     }
 
+    /**
+     * Retorna o id do motorista pelo seu nome
+     * @param $nome
+     * @return mixed
+     */
     public function retornaID($nome){
         $motorista = Motorista::where('nome',$nome)->first();
         return $motorista->id_motorista;
@@ -324,7 +329,11 @@ class MotoristaCL
         $motorista =  Motorista::where($coluna,$valor)->first();
         return $motorista;
     }
-
+    /**
+     * Realiza uma busca em aglumas colunas com a regra ou entre elas, e retorna por uma paginação
+     * @param $paginas
+     * @return mixed
+     */
     public function filtrar($paginas){
         $motorista = Motorista::where('nome','like','%'.$this->getNome().'%')->orWhere('cpf','like','%'.$this->getCpf().'%')->orWhere('status_motorista','like','%'.$this->getStatusMotorista().'%')->orWhere('vinculo','like','%'.$this->getVinculo().'%')->orderBy('nome','asc')->paginate($paginas);
         return $motorista;

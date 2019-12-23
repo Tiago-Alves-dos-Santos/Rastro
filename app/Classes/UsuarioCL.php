@@ -178,7 +178,11 @@ class UsuarioCL
             return false;
         }
     }
-
+    /**
+     * Realiza uma busca em aglumas colunas com a regra ou entre elas, e retorna por uma paginação
+     * @param $paginas
+     * @return mixed
+     */
     public function filtrar($paginas){
         $usuario = Usuario::where('nome','like','%'.$this->getNome().'%')->orWhere('tipo_usuario','like','%'.$this->getTipoUsuario().'%')->orderBy('nome','asc')->paginate($paginas);
         return $usuario;

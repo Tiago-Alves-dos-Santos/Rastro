@@ -146,3 +146,24 @@ li#concluido::before{
     background-color: rgba(108, 140, 59,1);
     border-color: rgba(108, 140, 59,1);
 }
+/*pagina sobre fotos*/
+img.img-sobre{
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+}
+.icone-insta{
+
+}
+.icone-face{
+
+}
+/*rodape*/
+.rodape{
+    background-color: rgba(108, 140, 59,1);
+    color: white;
+    margin-top: 15px;
+}
+.rodape a{
+    color: white;
+}

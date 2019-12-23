@@ -243,6 +243,11 @@ class ClienteCL
         }
     }
 
+    /**
+     * Verfica a se o telefone do cliente existe
+     * @return bool
+     * true == existe, false == nao existe
+     */
     public function verficarExistenciaTelefone(){
         $count = Cliente::where('telefone',$this->getTelefone())->count();
         if ($count > 0){
@@ -297,6 +302,12 @@ class ClienteCL
         return $cliente;
     }
 
+    /**
+     * Retorna um objeto cliente com algumas colunas especificadas no codigo de acordo
+     * com os valores colocados pelo usuario
+     * @param $paginas
+     * @return mixed
+     */
     public function filtrar($paginas){
        $cliente = Cliente::where('nome','like','%'.$this->getNome().'%')->orWhere('cpf','like','%'.$this->getCpf().'%')->orWhere('passaporte','like','%'.$this->getPassaporte().'%')->orWhere('data_nasc','like','%'.$this->getDataNasc().'%')->orWhere('telefone','like','%'.$this->getTelefone().'%')->orderBy('nome','asc')->paginate($paginas);
         return $cliente;

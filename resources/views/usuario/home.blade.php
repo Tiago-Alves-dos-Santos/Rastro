@@ -38,11 +38,11 @@
             <div style="clear: both"></div>
         </div>
     </div>
-    <div id='calendar' style="margin-top: 20px">
+    <div id='calendar' style="margin-top: 20px; margin-bottom: 20px">
 
     </div>
 </div>
-
+@include('componentes.rodape')
 <script src="{{ asset('css/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('css/bootstrap/popper.min.js') }}"></script>
 <script src="{{ asset('js/usuario/home.js') }}"></script>

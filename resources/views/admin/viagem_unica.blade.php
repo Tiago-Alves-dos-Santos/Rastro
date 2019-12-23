@@ -101,6 +101,7 @@
         </div>
     </div>
 </div>
+@include('componentes.rodape')
 <script src="{{ asset('css/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('css/bootstrap/popper.min.js') }}"></script>
 <script src="{{ asset('js/config.js') }}"></script>

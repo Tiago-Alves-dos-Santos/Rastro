@@ -149,9 +149,9 @@ class ViagemCL
     /**
      * @param mixed $data_inicio
      */
-    public function setDataInicio($data_inicio): void
+    public function setDataInicio($data_inicio,$format='Y/m/d'): void
     {
-        $data = date("Y/m/d", strtotime($data_inicio));
+        $data = date($format, strtotime($data_inicio));
         $this->data_inicio = $data;
     }
 
@@ -250,6 +250,12 @@ class ViagemCL
     {
         $this->status_viagem = $status_viagem;
     }
+
+    /**
+     * Recebe um id de motoristas e buscas todas as viagens pelo dia setado
+     * @param $ids_motoristas
+     * @return bool
+     */
     public function motoristasDisponiveis($ids_motoristas){
         $viagem_motorista = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->where('viagem.data_inicio',$this->getDataInicio())->get();
 
@@ -258,10 +264,14 @@ class ViagemCL
         foreach ($viagem_motorista as $vm){
             foreach ($ids_motoristas as $ids){
                 if ($vm->id_motorista == $ids){
+                    //se existir uma viagem no dia colocado e os motoristas delas estiverem presentes no
+                    //array de motoristas colocados, logo esse motorista é indisponivel
                     $disponibilade = false;
                     $pular = true;
+                    //se tiver um motorista indisponivel nao precisa mais verficar nenhum outro, entao saimos do laço
                     break;
                 }else{
+                    //caso mostorista esteja disponivel precisaremos verficar os outros
                     $disponibilade = true;
                 }
             }
@@ -271,6 +281,12 @@ class ViagemCL
         }
         return $disponibilade;
     }
+
+    /**
+     * Recebe um id de veiculos e buscas todas as viagens pelo dia setado
+     * @param $ids_veiculos
+     * @return bool
+     */
     public function veiculosDisponiveis($ids_veiculos){
         $viagem_motorista = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->where('viagem.data_inicio',$this->getDataInicio())->get();
 
@@ -279,10 +295,13 @@ class ViagemCL
         foreach ($viagem_motorista as $vm){
             foreach ($ids_veiculos as $ids){
                 if ($vm->id_veiculo == $ids){
+                    //se existir uma viagem no dia colocado e os veiculos delas estiverem presentes no
+                    //array de motoristas colocados, logo esse veiculo é indisponivel
                     $disponibilade = false;
                     $pular = true;
                     break;
                 }else{
+                    //caso veiculo esteja disponivel precisaremos verficar os outros
                     $disponibilade = true;
                 }
             }
@@ -292,52 +311,58 @@ class ViagemCL
         }
         return $disponibilade;
     }
+
+    /**
+     * O metodo nao esta sendo usado
+     * @param $paginas
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator(paginaçção)
+     */
     public function consultarViagensPaginateUsuario($paginas){
-        //colunas alteradas,
-        /*
-         * nome_fornecedor
-         * cpf_cliente
-         * nome_motorista
-         * cpf_motorista
-         * nome_cliente
-         */
         $viagem = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->JOIN('clientes_viagem','clientes_viagem.id_viagem','=','viagem.id_viagem')->JOIN('clientes','clientes.id_cliente','=','clientes_viagem.id_cliente')->JOIN('fornecedor','fornecedor.id_fornecedor','=','viagem.id_fornecedor')->select('*','fornecedor.nome as nome_fornecedor','clientes.cpf as cpf_cliente','motorista.nome as nome_motorista','motorista.cpf as cpf_motorista','clientes.nome as nome_cliente')->where('viagem.data_inicio', ">=",date('Y-m-d'))->orderBy('viagem.data_inicio','desc')->orderBy('viagem.horario_saida','desc')->paginate($paginas);
 
         return $viagem;
     }
+
+    /**
+     * O metodo nao esta sendo usado
+     * @param $paginas
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function consultarViagensPaginate($paginas){
-        //colunas alteradas,
-        /*
-         * nome_fornecedor
-         * cpf_cliente
-         * nome_motorista
-         * cpf_motorista
-         * nome_cliente
-         */
         $viagem = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->JOIN('clientes_viagem','clientes_viagem.id_viagem','=','viagem.id_viagem')->JOIN('clientes','clientes.id_cliente','=','clientes_viagem.id_cliente')->JOIN('fornecedor','fornecedor.id_fornecedor','=','viagem.id_fornecedor')->select('*','fornecedor.nome as nome_fornecedor','clientes.cpf as cpf_cliente','motorista.nome as nome_motorista','motorista.cpf as cpf_motorista','clientes.nome as nome_cliente')->orderBy('viagem.data_inicio','desc')->orderBy('viagem.horario_saida','desc')->paginate($paginas);
 
         return $viagem;
     }
 
+    /**
+     * Realiza uma consulta de viagens e retorna o agrupamento de ids, desse jeito vc precisara consultar
+     * a viagem depois pelo id dela para ver os motoristas e veiculos pertecentes, pois agrupada os motoristas
+     * e veiculos sao perdidos
+     * @param $paginas
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function groupPaginate($paginas){
         $viagem = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->JOIN('clientes_viagem','clientes_viagem.id_viagem','=','viagem.id_viagem')->JOIN('clientes','clientes.id_cliente','=','clientes_viagem.id_cliente')->JOIN('fornecedor','fornecedor.id_fornecedor','=','viagem.id_fornecedor')->select('*','fornecedor.nome as nome_fornecedor','clientes.telefone as telefone_cl','clientes.cpf as cpf_cliente','motorista.nome as nome_motorista','motorista.cpf as cpf_motorista','clientes.nome as nome_cliente')->orderBy('viagem.data_inicio','desc')->orderBy('viagem.horario_saida','desc')->groupBy('viagem.id_viagem')->paginate($paginas);
 
         return $viagem;
     }
 
+    /**
+     * Realiza o mesmo que groupPaginate, so que retornas as viagens com data igual ou maior que data atual
+     * @param $paginas
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function groupUserPaginate($paginas){
-        //colunas alteradas,
-        /*
-         * nome_fornecedor
-         * cpf_cliente
-         * nome_motorista
-         * cpf_motorista
-         * nome_cliente
-         */
+
         $viagem = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->JOIN('clientes_viagem','clientes_viagem.id_viagem','=','viagem.id_viagem')->JOIN('clientes','clientes.id_cliente','=','clientes_viagem.id_cliente')->JOIN('fornecedor','fornecedor.id_fornecedor','=','viagem.id_fornecedor')->select('*','fornecedor.nome as nome_fornecedor','clientes.telefone as telefone_cl','clientes.cpf as cpf_cliente','motorista.nome as nome_motorista','motorista.cpf as cpf_motorista','clientes.nome as nome_cliente')->where('viagem.data_inicio', ">=",date('Y-m-d'))->orderBy('viagem.data_inicio','desc')->orderBy('viagem.horario_saida','desc')->groupBy('viagem.id_viagem')->paginate($paginas);
 
         return $viagem;
     }
+
+    /**
+     * Realiza o mesmo que groupPaginate, so que nao retorna um paginate
+     * @return \Illuminate\Support\Collection
+     */
     public function groupconsultarViagens(){
         //colunas alteradas,
         /*
@@ -351,31 +376,44 @@ class ViagemCL
 
         return $viagem;
     }
+
+    /**
+     * Realiza uma consulta de viagens normal sem agrupar nenhum id
+     * @return \Illuminate\Support\Collection
+     */
     public function consultarViagens(){
-        //colunas alteradas,
-        /*
-         * nome_fornecedor
-         * cpf_cliente
-         * nome_motorista
-         * cpf_motorista
-         * nome_cliente
-         */
         $viagem = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->JOIN('clientes_viagem','clientes_viagem.id_viagem','=','viagem.id_viagem')->JOIN('clientes','clientes.id_cliente','=','clientes_viagem.id_cliente')->JOIN('fornecedor','fornecedor.id_fornecedor','=','viagem.id_fornecedor')->select('*','fornecedor.nome as nome_fornecedor','clientes.telefone as telefone_cl','clientes.cpf as cpf_cliente','motorista.nome as nome_motorista','motorista.cpf as cpf_motorista','clientes.nome as nome_cliente')->get();
 
         return $viagem;
     }
 
+    /**
+     * Realiza uma consulta de viagens normais, sem paginação, so que ela mostra as viagens ordenadas por datas
+     * mais recentes para as menos recentes
+     * @return \Illuminate\Support\Collection
+     */
     public function consultarViagensOrderRotina(){
         $viagem = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->JOIN('clientes_viagem','clientes_viagem.id_viagem','=','viagem.id_viagem')->JOIN('clientes','clientes.id_cliente','=','clientes_viagem.id_cliente')->JOIN('fornecedor','fornecedor.id_fornecedor','=','viagem.id_fornecedor')->select('*','fornecedor.nome as nome_fornecedor','clientes.telefone as telefone_cl','clientes.cpf as cpf_cliente','motorista.nome as nome_motorista','motorista.cpf as cpf_motorista','clientes.nome as nome_cliente')->orderBy('viagem.data_inicio','asc')->orderBy('viagem.horario_saida','asc')->get();
 
         return $viagem;
     }
+
+    /**
+     * Realiza uma consulta de uma unica viagem, usando o id, mas ela nao retorna so um registro
+     * vai depender da quantidade de motorista e veiculos pertencentes a viagem
+     * @return \Illuminate\Support\Collection
+     */
     public function consultarViagem(){
         $viagem = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->JOIN('clientes_viagem','clientes_viagem.id_viagem','=','viagem.id_viagem')->JOIN('clientes','clientes.id_cliente','=','clientes_viagem.id_cliente')->JOIN('fornecedor','fornecedor.id_fornecedor','=','viagem.id_fornecedor')->select('*','fornecedor.nome as nome_fornecedor','clientes.telefone as telefone_cl','clientes.cpf as cpf_cliente','motorista.nome as nome_motorista','motorista.cpf as cpf_motorista','clientes.nome as nome_cliente')->where('viagem.id_viagem',$this->getIdViagem())->get();
 
         return $viagem;
     }
 
+    /**
+     * Realiza o mesmo que consultarViagem, soq independente da quantidade de veiculos e motoristas
+     * pertecentes a viagem, ela so retorna um registro
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
+     */
     public function unicoRegistro(){
         //colunas alteradas,
         /*
@@ -390,6 +428,17 @@ class ViagemCL
         return $viagem;
     }
 
+    /**
+     * Realiza uma filtragem pelos colunas(nome_motrista,nome_cliente,data_inicio,data_final,status_viagem)
+     * Retorna um paginate
+     * @param $paginas
+     * @param $admin
+     * Caso admin == false, realiza o filtro mas com a condição de apenas viagens com data de inicio e termino
+     * maior ou igual a data atual
+     * @param ClienteCL $cliente
+     * @param MotoristaCL $motorista
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function filtrar($paginas,$admin,ClienteCL $cliente, MotoristaCL $motorista){
         if($admin){
             $viagem = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->JOIN('clientes_viagem','clientes_viagem.id_viagem','=','viagem.id_viagem')->JOIN('clientes','clientes.id_cliente','=','clientes_viagem.id_cliente')->JOIN('fornecedor','fornecedor.id_fornecedor','=','viagem.id_fornecedor')->select('*','fornecedor.nome as nome_fornecedor','clientes.telefone as telefone_cl','clientes.cpf as cpf_cliente','motorista.nome as nome_motorista','motorista.cpf as cpf_motorista','clientes.nome as nome_cliente')->where('clientes.nome','like','%'.$cliente->getNome().'%')->orWhere('motorista.nome','like','%'.$motorista->getNome().'%')->orWhere('viagem.status_viagem','like','%'.$this->getStatusViagem().'%')->orWhereRaw('viagem.data_inicio between ? and ?',[$this->getDataInicio(),$this->getDataTermino()])->orderBy('viagem.data_inicio','desc')->orderBy('viagem.horario_saida','desc')->groupBy('viagem.id_viagem')->paginate($paginas);
@@ -402,7 +451,10 @@ class ViagemCL
         }
     }
 
-
+    /**
+     * Realiza o agendamento na tabela viagem
+     * @return mixed
+     */
     public function agendar(){
         $viagem = new Viagem();
         $viagem->origem = $this->getOrigem();
@@ -420,6 +472,9 @@ class ViagemCL
         return DB::getPdo()->lastInsertId();
     }
 
+    /**
+     * Realiza a alteração na tabela viagem
+     */
     public function alterar(){
         Viagem::where('id_viagem',$this->getIdViagem())->update([
             "origem" => $this->getOrigem(),

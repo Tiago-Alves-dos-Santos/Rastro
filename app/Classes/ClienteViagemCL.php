@@ -113,6 +113,10 @@ class ClienteViagemCL
         $cliente_viagem->quantidade_dependente = $this->getQuantidade();
         $cliente_viagem->save();
     }
+
+    /**
+     * Realiza a alterção de tal cliente com uma viagem
+     */
     public function alterar(){
         ClienteViagem::where('id_viagem',$this->getViagemCl()->getIdViagem())->update([
            "id_cliente" => $this->getClienteCl()->getIdCliente(),

@@ -64,14 +64,16 @@
 
     <div class="row">
         <div class="col-md-12">
-            <form class="needs-validation novalidate">
+            <form class="needs-validation novalidate" method="post" action="{{route('admin.salario')}}">
+                @csrf
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
                         <label>Calcular salario mensal</label>
                         <input type="month" name="salario" class="form-control" required>
                     </div>
+                    <input type="hidden" name="id_motorista" value="{{$id}}">
                 </div>
-                <input type="submit" class="btn btn-danger btn-block" value="Calcular Salario">
+                <input type="submit" formtarget="_blank" class="btn btn-danger btn-block" value="Calcular Salario">
             </form>
         </div>
     </div>

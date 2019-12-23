@@ -95,7 +95,9 @@ class DespesasCL
     }
 
     /**
-     * @param mixed $data
+     * Recebe uma data com formato padrao(format), mas vc pode alterar esse padrao
+     * @param $data
+     * @param string $format
      */
     public function setData($data,$format='Y/m/d'): void
     {
@@ -119,6 +121,11 @@ class DespesasCL
         $this->preco = $preco;
     }
 
+    /**
+     * Realiza uma busca em aglumas colunas com a regra ou entre elas, e retorna por uma paginação
+     * @param $paginas
+     * @return mixed
+     */
     public function filtrar($paginas){
         $despesa = Despesas::where('id_motorista',$this->getMotoristaCl()->getIdMotorista())->where('data','like','%'.$this->getData().'%')->orWhere('preco','like','%'.$this->getPreco().'%')->orderBy('data','desc')->paginate($paginas);
 

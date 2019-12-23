@@ -69,11 +69,11 @@
             @endif
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <input type="button" class="btn btn-danger btn-block" value="Emitir relatorio geral">
-        </div>
-    </div>
+{{--    <div class="row">--}}
+{{--        <div class="col-md-12">--}}
+{{--            <input type="button" class="btn btn-danger btn-block" value="Emitir relatorio geral">--}}
+{{--        </div>--}}
+{{--    </div>--}}
     <div class="row" style="margin-top: 30px">
         @forelse($cliente as $c)
             {{-- expr --}}

@@ -31,6 +31,8 @@ class ViewsC extends Controller
     	//verfica se usuario esta logado
     	if (session("logado")== true) {
             $viagem = new ViagemCL();
+            //recebe todas as viagens agrupadas por id, sem condiçção de data, a verficaçção da data é feita na view
+            //do home usuario, como diz abaixo
             $viagem_grupo = $viagem->groupconsultarViagens();
     		return view("usuario.home", compact('viagem_grupo'));
     	}else{
@@ -44,6 +46,7 @@ class ViewsC extends Controller
     	//verfica se esta logado e se tipo e de adiministrador
     	if (session("logado")== true && session("tipo_usuario")  == "administrador") {
     	    $viagem = new ViagemCL();
+            //recebe todas as viagens agrupadas por id, sem condiçção de data
             $viagem_grupo = $viagem->groupconsultarViagens();
     		return view("admin.home",compact('viagem_grupo'));
     	}else{
@@ -56,7 +59,8 @@ class ViewsC extends Controller
     {
         //verfica se usuario esta logado
         if (session("logado")== true) {
-            //buscar fornecedor,veiculo,motorista,cliente
+            //buscar fornecedor,veiculo,motorista,cliente, para fornecer dados
+            //ao datalist e aos autocompletes
             $fornecedor = Fornecedor::orderBy('email')->get();
             $veiculo = Veiculo::orderBy('placa')->get();
             $motorista = Motorista::orderBy('nome')->get();
@@ -116,7 +120,7 @@ class ViewsC extends Controller
     {
         //verfica se usuario esta logado e se é do tipo adminitrador
         if (session("logado")== true && session("tipo_usuario")  == "administrador") {
-            //verfica categorias e modelos ja cadastrados
+            //verfica categorias e modelos ja cadastrados, para ajudar nos datalists
             $veiculo_mod = Veiculo::select(DB::raw("modelo, count(*) as qtd"))->groupBy("modelo")->get();
             $veiculo_marca = Veiculo::select(DB::raw("marca, count(*) as qtd"))->groupBy("marca")->get();
             return view("admin.cadastrar_veiculo", compact('veiculo_mod','veiculo_marca'));
@@ -214,10 +218,8 @@ class ViewsC extends Controller
             $viagem = new ViagemCL();
             if(session("tipo_usuario") == "administrador"){
                 $viagem_model = $viagem->groupPaginate(10);
-//                $viagem_model = $viagem->consultarViagensPaginate(10);
             }else{
                 $viagem_model = $viagem->groupUserPaginate(10);
-//                $viagem_model = $viagem->consultarViagensPaginateUsuario(10);
             }
 
             foreach ($viagem_model as $vg){

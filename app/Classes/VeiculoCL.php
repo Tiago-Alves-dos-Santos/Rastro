@@ -276,6 +276,11 @@ class VeiculoCL
             return false;
         }
     }
+    /**
+     * Realiza uma busca em aglumas colunas com a regra ou entre elas, e retorna por uma paginação
+     * @param $paginas
+     * @return mixed
+     */
     public function filtrar($paginas){
         $veiculo = Veiculo::where('placa','like','%'.$this->getPlaca().'%')->orWhere('propietario','like','%'.$this->getPropietario().'%')->orWhere('vinculo','like','%'.$this->getVinculo().'%')->orWhere('disponivel','like','%'.$this->getDisponivel().'%')->paginate($paginas);
         return $veiculo;

@@ -127,7 +127,11 @@ class FornecedorCL
         $fornecedor = Fornecedor::where($coluna,$valor)->first();
         return $fornecedor;
     }
-
+    /**
+     * Realiza uma busca em aglumas colunas com a regra ou entre elas, e retorna por uma paginação
+     * @param $paginas
+     * @return mixed
+     */
     public function filtrar($paginas){
         $fornecedor = Fornecedor::where('nome','like','%'.$this->getNome().'%')->orWhere('email','like','%'.$this->getEmail().'%')->orderBy('nome','asc')->paginate($paginas);
         return $fornecedor;
