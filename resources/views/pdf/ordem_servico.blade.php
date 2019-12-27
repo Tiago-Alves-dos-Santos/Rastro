@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Viagem-{{$viagem_unica->id_viagem}}</title>
     <link rel="icon" href="{{ asset('img/logo-rastro.png') }}">
