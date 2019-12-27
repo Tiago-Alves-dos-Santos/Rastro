@@ -64,6 +64,9 @@ class UsuarioC extends Controller
     public function cadastrar(Request $req)
     {
         $usuario = new UsuarioCL();
+        $usuario->setNome($req->nome);
+        $usuario->setLogin($req->login);
+        $usuario->setSenha($req->senha);
         //verfica campos nulos e existencia do usuario, caso alguma
         //seja verdadeira retorna para a area de cadastro
         if ($req->nome == "" || $req->login == "" || $req->senha == "") {

@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\DB;
 //models
 use App\Models\Veiculo;
 //classes
-use App\Classes\VeiculoCl;
+use App\Classes\VeiculoCL;
 class VeiculoC extends Controller
 {
     public function cadastrar(Request $req)
     {
-    	$veiculo = new VeiculoCl();
+    	$veiculo = new VeiculoCL();
     	//seta os valores no objeto veiculo para validação
     	$veiculo->setPlaca(strtoupper($req->placa));
     	$veiculo->setMarca($req->marca);
@@ -98,7 +98,7 @@ class VeiculoC extends Controller
 
     public function alterar(Request $req)
     {
-        $veiculo = new VeiculoCl();
+        $veiculo = new VeiculoCL();
         //seta os valores no objeto veiculo para validação
         $veiculo->setIdVeiculo((int)$req->id_veiculo);
         $veiculo->setPlaca(strtoupper($req->placa));
@@ -194,7 +194,7 @@ class VeiculoC extends Controller
             $req->disponibilidade = "*";
         }
         $filtros = $req->except(['_token']);
-        $veiculo = new VeiculoCl();
+        $veiculo = new VeiculoCL();
         $veiculo->setPlaca($req->placa);
         $veiculo->setPropietario($req->propietario);
         $veiculo->setVinculo($req->vinculo);
