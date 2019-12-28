@@ -10,6 +10,8 @@ $(function(){
     $("div#msg-php").click(function(e) {
         $(this).fadeOut('slow');
     });
+    //desabilita o botao(seta) voltar do navegador
+    window.history.forward();
 });
 
 //tranforma menu bootstrap em multileve
