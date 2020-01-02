@@ -310,6 +310,7 @@ class VeiculoCL
      */
     public function alterar()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Veiculo::where("id_veiculo",$this->getIdVeiculo())->update([
             "placa" => $this->getPlaca(),
             "marca" => $this->getMarca(),
@@ -320,6 +321,7 @@ class VeiculoCL
             "vinculo" => $this->getVinculo(),
             "tipo" => $this->getTipo()
         ]);
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 
 
