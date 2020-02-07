@@ -58,7 +58,7 @@ class ViagemC extends Controller
             $motorista->setNome($nome_motorista[$i]);
             //verfica se nome colocado existe
             if ($motorista->verficarNome() == false){
-                return response()->json("O nome ".$motorista->getNome()." colocado em motorista não existe no banco!");
+                return response()->json("O motorista ".$motorista->getNome()." não esta cadastrado!");
             }
         }
         //inicia um array para armazenas os ids dos motoristas solicitados na viagem
@@ -73,7 +73,7 @@ class ViagemC extends Controller
             $data_brasil = date('d/m/Y',strtotime($data_brasil));
             //verfica os motoristas disponiveis na data colocada
             if ($viagem->motoristasDisponiveis($ids_motorista) == false){
-                return response()->json("O motorista ".$motorista_model->nome." não esta disponivel para data ".$data_brasil."! Excute a tarfa rotina de viagens e tente novamente");
+                return response()->json("O motorista ".$motorista_model->nome." não esta disponivel para data ".$data_brasil."! Excute a tarefa rotina de viagens e tente novamente");
             }
 
         }
@@ -85,7 +85,7 @@ class ViagemC extends Controller
             $veiculo->setPlaca($placas[$i]);
             if ($veiculo->verficarExistencia() == false){
 //                echo "A placa ".$veiculo->getPlaca()." não é existente no banco";
-                return response()->json("A placa ".$veiculo->getPlaca()." não é existente no banco!");
+                return response()->json("O veículo ".$veiculo->getPlaca()." não esta cadastrado");
             }
         }
         //inicia um array com ids do veiculos solicitados
@@ -105,9 +105,14 @@ class ViagemC extends Controller
 //        //verificar data agendada
         $data_atual = date("Y/m/d");
         $data_agendada_br = date("d/m/Y", strtotime($viagem->getDataInicio()));
+        //se a viagem for uma viagem com data antiga, nao verfica os motoristas e veiculos
+        $viagem_antiga = false;
         //se a data atual for no futuro da data agendada, nao realiza um agendamento
         if (strtotime($data_atual) > strtotime($viagem->getDataInicio())){
-            return response()->json("Atenção a data de agendamento não possui logica, viagem sendo agendada para o passado, data atual: ".date('d/m/Y')." data agendada ".$data_agendada_br);
+            //habilite e desabilite viagens passadas
+//            return response()->json("Atenção a data de agendamento não possui logica, viagem sendo agendada para o passado, data atual: ".date('d/m/Y')." data agendada ".$data_agendada_br);
+            $viagem->setStatusViagem("Concluida");
+            $viagem_antiga = true;
         }else if(strtotime($data_atual) == strtotime($viagem->getDataInicio())){
             //caso a data atual seja igual a data agendada viagem fica em andamento
             $viagem->setStatusViagem("Em andamento");
@@ -122,14 +127,14 @@ class ViagemC extends Controller
             if($item > 1){
                 $mt_model = $motorista->getObjetcColVal('id_motorista',$index);
 //                echo "O motorista ".$mt_model->nome." esta sendo repetido ".$item." vezes";
-                return response()->json("O motorista ".$mt_model->nome." esta sendo repetido ".$item." vezes");
+                return response()->json("O motorista ".$mt_model->nome." esta repetido ".$item." vezes");
             }
         }
 
         foreach ($grupo_veiculo as $index => $item) {
             if($item > 1){
                 $vc_model = $veiculo->getObjetcColVal('id_veiculo',$index);
-                return response()->json("O veiculo ".$vc_model->placa." esta sendo repetido ".$item." vezes");
+                return response()->json("O veiculo ".$vc_model->placa." esta repetido ".$item." vezes");
             }
         }
         //caso tudo certo realiza o agendamento
@@ -140,6 +145,11 @@ class ViagemC extends Controller
         $motorista_viagem->cadastrar($ids_veiculos,$ids_motorista,$placas);
         $cliente_viagem->setViagemCl($viagem);
         $cliente_viagem->cadastrar();
+
+        if($viagem_antiga){
+            //agendamento concluido com sucesso, retorna 1, sem mudar status de motoristas e carros
+            return response()->json(1);
+        }
         //apos realizar os agendamentos nas tabelas altera-se os status de motoristas e veiculos
         //atualizar status de motorista e veicculo
         foreach ($ids_veiculos as $id){
@@ -207,7 +217,7 @@ class ViagemC extends Controller
             $motorista->setNome($nome_motorista[$i]);
             if ($motorista->verficarNome() == false){
 //                echo "O nome ".$motorista->getNome()." colocado em motorista não existe no banco!";
-                return response()->json("O nome ".$motorista->getNome()." colocado em motorista não existe no banco!");
+                return response()->json("O motorista ".$motorista->getNome()." não é cadastrado!");
             }
         }
 
@@ -219,7 +229,7 @@ class ViagemC extends Controller
             $veiculo->setPlaca($placas[$i]);
             if ($veiculo->verficarExistencia() == false){
 //                echo "A placa ".$veiculo->getPlaca()." não é existente no banco";
-                return response()->json("A placa ".$veiculo->getPlaca()." não é existente no banco!");
+                return response()->json("O veículo ".$veiculo->getPlaca()." não é cadastrado!");
             }
         }
         //se o dia digitado for diferente do antigo nao precisa verficar
@@ -351,8 +361,13 @@ class ViagemC extends Controller
         //verificando a data agendada igual no caastro
         $data_atual = date("Y/m/d");
         $data_agendada_br = date("d/m/Y", strtotime($viagem->getDataInicio()));
+        //se a viagem for uma viagem com data antiga, nao verfica os motoristas e veiculos
+        $viagem_antiga = false;
         if (strtotime($data_atual) > strtotime($viagem->getDataInicio())){
-            return response()->json("Atenção a data de agendamento nao possui logica, viagem sendo agendada para o passado, data atual: ".date('d/m/Y')." data agendada ".$data_agendada_br);
+            //habilite e desabilite viagens passadas
+//            return response()->json("Atenção a data de agendamento não possui logica, viagem sendo agendada para o passado, data atual: ".date('d/m/Y')." data agendada ".$data_agendada_br);
+            $viagem->setStatusViagem("Concluida");
+            $viagem_antiga = true;
         }else if(strtotime($data_atual) == strtotime($viagem->getDataInicio())){
             $viagem->setStatusViagem("Em andamento");
         }else if(strtotime($data_atual) < strtotime($viagem->getDataInicio())){
@@ -365,14 +380,14 @@ class ViagemC extends Controller
         foreach ($grupo_motorista as $index => $item) {
             if($item > 1){
                 $mt_model = $motorista->getObjetcColVal('id_motorista',$index);
-                return response()->json("O motorista ".$mt_model->nome." esta sendo repetido ".$item." vezes");
+                return response()->json("O motorista ".$mt_model->nome." esta repetido ".$item." vezes");
             }
         }
 
         foreach ($grupo_veiculo as $index => $item) {
             if($item > 1){
                 $vc_model = $veiculo->getObjetcColVal('id_veiculo',$index);
-                return response()->json("O veiculo ".$vc_model->placa." esta sendo repetido ".$item." vezes");
+                return response()->json("O veículo ".$vc_model->placa." esta repetido ".$item." vezes");
             }
         }
         //realiza a alteração, em todas tabelas que se relacionam com viagem
@@ -382,7 +397,9 @@ class ViagemC extends Controller
         $motorista_viagem->alterar($ids_veiculos,$ids_motorista,$placas);
         $cliente_viagem->setViagemCl($viagem);
         $cliente_viagem->alterar();
-
+        if($viagem_antiga){
+            return response()->json(1);
+        }
         //atualizar status de motorista e veicculo
         foreach ($ids_veiculos as $id){
             Models\Veiculo::where('id_veiculo',$id)->update([

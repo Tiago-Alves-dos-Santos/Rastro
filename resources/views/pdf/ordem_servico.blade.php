@@ -22,7 +22,6 @@
         p.rodape{
             font-size: 12pt;
             font-weight: bold;
-            text-transform: capitalize;
             display: block;
         }
         td{
@@ -40,7 +39,7 @@
 
         </td>
         <td style="text-align: right; border: none">
-            <h1 style="text-decoration: underline;" class="font-h1">Ordem de serviço</h1>
+            <h1 style="text-decoration: underline;" class="font-h1">Ordem de serviço - {{$viagem_unica->id_viagem}}</h1>
         </td>
     </tr>
 

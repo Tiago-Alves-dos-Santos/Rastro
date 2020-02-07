@@ -34,15 +34,15 @@
                 @csrf
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="destino">Nome:</label>
-                        <input type="text" name="nome" class="form-control" id="destino" placeholder="Anoimo exemplo">
+                        <label for="destino">Nome</label>
+                        <input type="text" name="nome" class="form-control" id="destino" placeholder="Anonimo">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="nome">CPF</label>
                         <input type="text" name="cpf" class="form-control" id="origem" placeholder="000.000.000-00">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="rg">Vinculo com a empresa</label>
+                        <label for="rg">Vínculo com a empresa</label>
                         <select class="custom-select" name="vinculo">
                             <option value="" selected>Selecione o vinculo do motorista</option>
                             <option value="Externo">Externo</option>
@@ -105,7 +105,7 @@
                             <div class="col-md-6">
                                 <ul style="list-style: none;">
                                     <li class="card-text">CPF: {{$m->cpf}}</li>
-                                    <li class="card-text">Agencia: {{$m->agencia_banco}}</li>
+                                    <li class="card-text">Agência: {{$m->agencia_banco}}</li>
                                     <li class="card-text">Conta Bancaria: {{$m->conta_banco}}</li>
                                     <li class="card-text">Disponibiidade: {{$m->status_motorista}}</li>
                                     <li class="card-text">Vinculo: {{$m->vinculo}}</li>

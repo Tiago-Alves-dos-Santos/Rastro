@@ -24,15 +24,15 @@
 <div class="container">
     <div class="row" style="margin-top: 25px;">
         <div class="col-md-12 d-flex justify-content-center" id="form-filtro-controle">
-            <h2 style="cursor: pointer;">Filtros de usuarios <i id="mais" class="fas fa-plus-circle"></i></h2>
+            <h2 style="cursor: pointer;">Filtros de Usuários <i id="mais" class="fas fa-plus-circle"></i></h2>
         </div>
         <div class="col-md-12" id="form-filtro">
             <form class="needs-validation novalidate" method="post" action="{{route('admin.filter.usuario')}}">
                 @csrf
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="nome">Nome</label>
-                        <input type="text" class="form-control" name="nome" id="origem" placeholder="Anonimo exemplo">
+                        <label for="nome">Usuário</label>
+                        <input type="text" class="form-control" name="nome" id="origem" placeholder="Anonimo">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="tipo_usuario">Tipo de usuario</label>

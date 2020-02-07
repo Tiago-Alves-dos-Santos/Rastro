@@ -58,7 +58,7 @@
         <div class="col-md-6">
             <ul style="list-style: none">
                 <li>Local de destino: {{$viagem_unica->local_destino}}</li>
-                <li>Andamento da viagem {{$viagem_unica->status_viagem}}</li>
+                <li>Status: {{$viagem_unica->status_viagem}}</li>
                 <li>Valor da viagem: R$ {{$viagem_unica->preco}}</li>
             </ul>
         </div>
@@ -85,7 +85,7 @@
         </div>
 
         <div class="col-md-6">
-            <h2>Veiculos(s)</h2>
+            <h2>Veículos(s)</h2>
             @foreach($viagem_model as $vg)
             <div class="row">
                 <div class="col-md-4">

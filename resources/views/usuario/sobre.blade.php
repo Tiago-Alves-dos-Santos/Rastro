@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Rastro-Informação</title>
+    <title>Chronos-Informação</title>
     <link rel="icon" href="{{ asset('img/logo-rastro.png') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/global.css') }}">
@@ -30,7 +30,7 @@
                 <div class="col-md-">
                     <ul style="list-style: none">
                         <li>Nome: Leinylson Fontinele Pereira</li>
-                        <li>Função: Anonima Função</li>
+                        <li>Função: Analista de Negócios</li>
                         <li><a href="https://www.linkedin.com/in/leinylson/" target="_blank"><i class="fab fa-facebook fa-lg"></i></a> || <a href="https://www.instagram.com/leinylson/" target="_blank" style="color: rgb(236, 61, 66)"><i class="fab fa-instagram fa-lg"></i></a></li>
                     </ul>
                 </div>

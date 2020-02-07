@@ -110,7 +110,7 @@
                         </div>
                         <div class="col-md-6">
                             <ul style="list-style: none;">
-                                <li class="card-text">Andamento da viagem: {{$viagem->status_viagem}}</li>
+                                <li class="card-text">Status: {{$viagem->status_viagem}}</li>
                                 <li class="card-text">Preço: {{$viagem->preco}}</li>
                                 <li class="card-text">Fornecedor(operadora): {{$viagem->nome_fornecedor}}</li>
                                 <li class="card-text">Fornecedor(operadora) email: {{$viagem->email}}</li>
@@ -154,11 +154,11 @@
                             <a href="" class="viagem-motoristas mb-2" data-viagem="{{$viagem->id_viagem}}" style="margin-right: 10px;color:black" title="Ver motoristas e veiculos da viagem {{$viagem->id_viagem}}"><i class="fas fa-eye fa-2x"></i></a>
 
                             @if(session("tipo_usuario") == "administrador")
-                            <a href="" class="btn btn-danger mb-2 cancelar_viagem" data-viagem="{{$viagem->id_viagem}}" style="margin-right: 10px">Desativar viagem</a>
+                            <a href="" class="btn btn-danger mb-2 cancelar_viagem" data-viagem="{{$viagem->id_viagem}}" style="margin-right: 10px">Cancelar viagem</a>
                             @endif
-                            <a href="{{route('viagem.search',['id' => $viagem->id_viagem])}}" class="btn btn-verde mb-2" style="margin-right: 10px">Mais detalhes</a>
+                            <a href="{{route('viagem.search',['id' => $viagem->id_viagem])}}" class="btn btn-verde mb-2" style="margin-right: 10px">Mais Detalhes</a>
                             @if(session("tipo_usuario") == "administrador")
-                            <a href="{{route('admin.pdf',['id' => $viagem->id_viagem])}}" target="_blank" class="btn btn-danger mb-2" id="pdf-viagem" style="margin-right: 10px">Ordem de serviço</a>
+                            <a href="{{route('admin.pdf',['id' => $viagem->id_viagem])}}" target="_blank" class="btn btn-primary mb-2" id="pdf-viagem" style="margin-right: 10px">Ordem de Serviço</a>
                             @endif
                             @if(session("tipo_usuario") == "administrador" && $viagem->status_viagem != "Concluida")
                             <a href="{{route('alter.viagem',['id' => $viagem->id_viagem])}}" class="btn btn-warning text-light mb-2" class="alterar-viagem">Alterar Viagem</a>
@@ -202,8 +202,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h5>Apos desativar uma viagem, ela sera como excluida, não ira afetar no calculo das despesas dos motoristas envolvidos na mesma e não ira aparecer no iniciar. Viagens canceladas não poderam ser restauradas!</h5>
-                <h5>Senhor(a) {{session('nome')}} você realmente deseja desativar essa viagem?</h5>
+                <h5>Após cancelar uma viagem ela sera como excluida, não afetara no calculo das despesas dos motoristas envolvidos na mesma e não aparecera no calendario de agendamento. <span style="color:red">Viagens canceladas não poderam ser restauradas!</span></h5>
+                <h5>Senhor(a) {{session('nome')}} você realmente deseja cancelar esta viagem?</h5>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
@@ -241,7 +241,7 @@
         }else{
             //casom os motorisa estejam sendo escondidos iram mostrar
             $(this).html("<i class='fas fa-eye-slash fa-2x'></i>");
-            $(this).attr('title','Desver motoristas e veiculos da viagem '+id_viagem);
+            $(this).attr('title','Ocultar motoristas e veiculos da viagem '+id_viagem);
         }
         $.ajax({
             //tipo de envio

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Salario Motorista</title>
+    <title>Salário Motorista</title>
     <link rel="icon" href="{{ asset('img/logo-rastro.png') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -43,7 +43,7 @@
 
         </td>
         <td style="text-align: right; border: none">
-            <h1 style="text-decoration: underline;" class="font-h1">Salario Motorista</h1>
+            <h1 style="text-decoration: underline;" class="font-h1">Salário Motorista</h1>
         </td>
     </tr>
     <tr>
@@ -84,7 +84,7 @@
     </tr>
     <tr>
         <td colspan="2">
-            <h1 class="font-h1">Despesas do mes ({{$mes}}):</h1>
+            <h1 class="font-h1">Despesas do mês ({{$mes}}):</h1>
             @forelse($depesas as $d)
                 <p style="display: block">
                     Motivo: {{$d->descricao}}
@@ -97,13 +97,13 @@
                 </p>
 
             @empty
-                <p>O motorista {{$motorista->nome}} não contem despesas na data {{$mes}}</p>
+                <p>O motorista {{$motorista->nome}} não contém despesas na data {{$mes}}</p>
             @endforelse
         </td>
     </tr>
     <tr>
         <td colspan="2">
-            <h1 class="font-h1">Salario do mes</h1>
+            <h1 class="font-h1">Salário do mes</h1>
             @if($salario > 0)
                 <p>
                     A receber: R$ {{$salario}}
@@ -114,11 +114,11 @@
                 </p>
 
                 <p style="font-size: 10pt; font-weight: bold; color: #fd2a2c">
-                    *O salario esta em valor negativo!
+                    *O salário esta em valor negativo!
                 </p>
             @endif
             <p style="font-size: 10pt; font-weight: bold">
-                O salario é baseado na soma das viagens menos o valor total das depesas!
+                O salário é baseado na soma das viagens menos o valor total das depesas!
             </p>
         </td>
     </tr>

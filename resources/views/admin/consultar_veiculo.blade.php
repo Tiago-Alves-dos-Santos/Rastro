@@ -34,11 +34,11 @@
                 @csrf
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="localizador">Placa || Indentificação</label>
+                        <label for="localizador">Indentificação</label>
                         <input type="text" name="placa" class="form-control" id="localizador" placeholder="ABC-1234">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="destino">Propietario</label>
+                        <label for="destino">Propietário</label>
                         <input type="text" name="propietario" placeholder="Propietario" class="form-control" id="destino">
                     </div>
                 </div>
@@ -50,12 +50,12 @@
                             <option value="">Selecione para busca</option>
                             <option value="Agendada">Agendado</option>
                             <option value="Em andamento">Em uso</option>
-                            <option value="Concluida">Disponivel</option>
+                            <option value="Concluida">Disponível</option>
                         </select>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label>Vinculo</label>
+                        <label>Vínculo</label>
                         <select class="custom-select" name="vinculo">
                             <option value="">Selecione para busca</option>
                             <option value="Externo">Externo</option>

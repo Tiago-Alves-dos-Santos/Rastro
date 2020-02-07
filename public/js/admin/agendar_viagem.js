@@ -60,7 +60,7 @@ $(function(){
                         "<input type='text' class='form-control nome_mot' value='"+nome+"' name='nome_mot[]' id='' data-nome='Nome motorista "+linha_gerar+"' readonly>\n" +
                     "</td>" +
                     "<td>" +
-                        "<input type='text' class='form-control placa' value='"+placa+"' name='veiculos[]' id='' placeholder='Placa || Indetificação' data-nome='Placa || Indetificação do veiculo "+linha_gerar+"' readonly>" +
+                        "<input type='text' class='form-control placa' value='"+placa+"' name='veiculos[]' id='' placeholder='Placa || Indetificação' data-nome='Veículo "+linha_gerar+"' readonly>" +
                     "</td>" +
                     "<td>" +
                         "<button id='"+linha_gerar+"' type='button' class='btn btn-danger btn-block delete'><i class='fas fa-user-minus'></i></button>" +

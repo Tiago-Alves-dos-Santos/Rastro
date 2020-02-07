@@ -37,7 +37,7 @@
             <form id="regiration_form" class="viagem"  action="{{route('admin.viagem.alter')}}"  method="post">
                 @csrf
                 <fieldset>
-                    <h2>Cadastre uma nova viagem</h2>
+                    <h2>Altere a viagem {{$viagem_unica->id_viagem}}</h2>
                     <div class="form-row">
                         <input type="hidden" name="id_viagem" value="{{$viagem_unica->id_viagem}}">
                         <div class="col-md-6">
@@ -83,7 +83,7 @@
                     <div class="form-row">
                         <div class="col-md-12">
                             <label for="fornecedor">Fornecedor || Operadora</label>
-                            <input type="text" class="form-control required" name="fornecedor" placeholder="emailforncedor@exemplo.com" id="fornecedor" data-nome="fornecedor || operadora" list="emails" value="{{$viagem_unica->email}}">
+                            <input type="text" class="form-control required" name="fornecedor" placeholder="email do fornecedor" id="fornecedor" data-nome="fornecedor || operadora" list="emails" value="{{$viagem_unica->email}}">
 
                             <datalist id="emails">
                                 @foreach($fornecedor as $f)
@@ -136,12 +136,12 @@
                         <div id="marcador2">
                             <div class="form-row veiculos-motorista" id="mt-1">
                                 <div class="col-md-5" class="mt-1">
-                                    <label for="m_cpf">Nome Motorista</label>
-                                    <input type="text" class="form-control" value="" id="motorista" data-nome="Nome motorista 1">
+                                    <label for="m_cpf">Motorista</label>
+                                    <input type="text" class="form-control" value="" id="motorista" data-nome="Nome motorista 1" placeholder="Anonimo motorista exemplo">
                                 </div>
                                 <div class="col-md-5" class="mt-1">
-                                    <label for="vc">Placa || Indetificação do veiculo</label>
-                                    <input type="text" class="form-control placa" value="" id="veiculo" placeholder="Placa || Indetificação" data-nome="Placa || Indetificação do veiculo 1">
+                                    <label for="vc">Veículo</label>
+                                    <input type="text" class="form-control placa" value="" id="veiculo" placeholder="Indetificação" data-nome="Placa || Indetificação do veiculo 1">
                                 </div>
                                 <div class="col-md-2 mt-1" >
                                     <button type="button" id="btn-add" style="margin-top:28px;"  class="btn btn-verde btn-block add_mt" ><i class="fas fa-user-plus"></i></button>

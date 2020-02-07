@@ -24,10 +24,10 @@ class ClienteC extends Controller
             session(["msg"=>"Por favor! Informe uma cidade para o cliente!"]);
             return redirect()->route("create.cliente");
         }else if (strlen($req->cpf) < 12 && strlen($req->cpf)> 1) {
-            session(["msg"=>"Por favor! Informe o cpf com tamanho certo"]);
+            session(["msg"=>"Por favor! Informe o CPF com tamanho certo"]);
             return redirect()->route("create.cliente");
         }else if (!$cliente->validaCPF($req->cpf) && $req->cpf != "") {
-            session(["msg"=>"Por favor! Informe um cpf valido"]);
+            session(["msg"=>"Por favor! Informe um CPF válido"]);
             return redirect()->route("create.cliente");
         }
 

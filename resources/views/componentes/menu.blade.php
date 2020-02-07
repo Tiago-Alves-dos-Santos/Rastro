@@ -1,7 +1,7 @@
 <script src="https://kit.fontawesome.com/100dc002c3.js"></script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-verde" id="menu-nav">
     <div class="container">
-        <a class="navbar-brand" href="#">Rastro</a>
+        <a class="navbar-brand" href="">Rastro</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
             <span class="navbar-toggler-icon"></span>
         </button>

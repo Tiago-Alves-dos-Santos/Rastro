@@ -20,7 +20,8 @@ class MotoristaVViagemC extends Controller
         $soma_valor_viagem = 0;
         $locais = [];
        foreach ($viagem_feitas as $v){
-           //calcula valor das viagens
+           //calcula valor das viagens, caso queira colocar porcetagem por viagem faça aq, pois aq estamos
+           //pegando o valor total de cada viagem e simplesmnete somando
            $soma_valor_viagem += $v->preco;
            //aramazena os locais viajados
            $locais[] = $v->origem.' para '.$v->destino;

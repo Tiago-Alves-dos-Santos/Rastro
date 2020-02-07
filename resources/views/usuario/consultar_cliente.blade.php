@@ -32,11 +32,11 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="nome">Nome</label>
-                        <input type="text" name="nome" class="form-control" id="origem" placeholder="Anonimo exemplo">
+                        <input type="text" name="nome" class="form-control" id="origem" placeholder="Anônimo">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="destino">CPF:</label>
-                        <input type="text" name="cpf" class="form-control" id="destino" placeholder="Senha">
+                        <input type="text" name="cpf" class="form-control" id="destino" placeholder="000.000.000-00">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="destino">Passaporte:</label>

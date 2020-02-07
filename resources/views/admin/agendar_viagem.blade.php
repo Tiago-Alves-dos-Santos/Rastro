@@ -82,7 +82,7 @@
                     <div class="form-row">
                         <div class="col-md-12">
                             <label for="fornecedor">Fornecedor || Operadora</label>
-                            <input type="text" class="form-control required" name="fornecedor" placeholder="emailforncedor@exemplo.com" id="fornecedor" data-nome="fornecedor || operadora" list="emails">
+                            <input type="text" class="form-control required" name="fornecedor" placeholder="email do fornecedor" id="fornecedor" data-nome="fornecedor || operadora" list="emails">
 
                             <datalist id="emails">
                                 @foreach($fornecedor as $f)
@@ -135,12 +135,12 @@
                         <div id="marcador2">
                             <div class="form-row veiculos-motorista" id="mt-1">
                                 <div class="col-md-5" class="mt-1">
-                                    <label for="m_cpf">Nome Motorista</label>
-                                    <input type="text" class="form-control" value="" id="motorista" data-nome="Nome motorista 1">
+                                    <label for="m_cpf">Motorista</label>
+                                    <input type="text" class="form-control" value="" id="motorista" data-nome="Nome motorista 1" placeholder="Anonimo motorista exemplo">
                                 </div>
                                 <div class="col-md-5" class="mt-1">
-                                    <label for="vc">Placa || Indetificação do veiculo</label>
-                                    <input type="text" class="form-control placa" value="" id="veiculo" placeholder="Placa || Indetificação" data-nome="Placa || Indetificação do veiculo 1">
+                                    <label for="vc">Veículo</label>
+                                    <input type="text" class="form-control placa" value="" id="veiculo" placeholder="Indetificação" data-nome="Veículo 1">
                                 </div>
                                 <div class="col-md-2 mt-1" >
                                     <button type="button" id="btn-add" style="margin-top:28px;"  class="btn btn-verde btn-block add_mt" ><i class="fas fa-user-plus"></i></button>
@@ -224,14 +224,14 @@
                 success: function (e) {
                     if(e == 1){
                         $("#msg-dialog p").html("Viagem agendada com sucesso, aguarde 5s");
-                        $("#msg-dialog").attr('title','Agedamneto bem sucedido');
+                        $("#msg-dialog").attr('title','Agendamento bem sucedido');
                         $("#msg-dialog").dialog();
                         setTimeout(function () {
                             window.location.reload();
                         },5000);
                     }else{
                         $("#msg-dialog p").html(e);
-                        $("#msg-dialog").attr('title','Erro no agendamento!');
+                        $("#msg-dialog").attr('title','Atenção!');
                         $("#msg-dialog").dialog();
                     }
                 },
