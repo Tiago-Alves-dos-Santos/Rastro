@@ -34,15 +34,15 @@
                 <div class="form-row">
                     <div class="col-md-6">
                         <label for="telefone">Telefone:</label>
-                        <input type="text" class="form-control" value="{{$fornecedor->telefone}}" name="telefone" required="" id="telefone" placeholder="+55 (88) 0 0000-0000">
+                        <input type="text" class="form-control" value="{{$fornecedor->telefone}}" name="telefone"  id="telefone" placeholder="+55 (88) 0 0000-0000">
                     </div>
                     <div class="col-md-6">
                         <label for="email">Email:</label>
-                        <input type="email" class="form-control" value="{{$fornecedor->email}}" name="email" id="email" required="" placeholder="email@exemplo.com">
+                        <input type="email" class="form-control" value="{{$fornecedor->email}}" name="email" id="email"  placeholder="email@exemplo.com">
                     </div>
                 </div>
 
-                <div class="form-row" style="margin-top: 15px">
+                <div class="form-row" style="margin-top: 15px; margin-bottom: 15px">
                     <div class="col-md-6 mb-3">
                         <a href="{{ route('read.fornecedor') }}" class="btn btn-block btn-orange">Voltar</a>
                     </div>

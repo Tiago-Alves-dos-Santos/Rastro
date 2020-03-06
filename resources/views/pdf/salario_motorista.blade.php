@@ -75,7 +75,7 @@
                     Data: {{$v->data_inicio}}
                 </p>
                 <p style="display: block">
-                    Preço: R$ {{$v->preco}}
+                    Valor da diária: R$ {{$v->valor_motorista}}
                 </p>
             @empty
                 <p>O motorista {{$motorista->nome}} não realizou viagens na data {{$mes}}</p>

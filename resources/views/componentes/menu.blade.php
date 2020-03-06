@@ -75,6 +75,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{route('user.rotina.viagem')}}">Rotina de Viagens</a>
                         </div>
+                        
                     </li>
 {{--                @endif--}}
                 <li class="nav-item">

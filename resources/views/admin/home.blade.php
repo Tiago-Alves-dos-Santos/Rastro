@@ -78,8 +78,10 @@
                 {
                     groupId: "{{$viagem->id_viagem}}",
                     title: "{{$viagem->origem}} - {{$viagem->destino}}",
-                    start: '{{$viagem->data_inicio}}T'+'{{$viagem->horario_saida}}',
-                    end: '{{$viagem->data_inicio}}T'+'{{$viagem->horario_saida}}',
+                    // start: '{{$viagem->data_inicio}}T'+'{{$viagem->horario_saida}}',
+                    // end: '{{$viagem->data_inicio}}T'+'{{$viagem->horario_saida}}',
+                    start: '{{$viagem->data_inicio}}',
+                    end: '{{$viagem->data_inicio}}T',
                     fontColor: '#000',
                     url: '{{route('viagem.search',['id' => $viagem->id_viagem])}}',
                     @if($viagem->status_viagem == "Agendada")

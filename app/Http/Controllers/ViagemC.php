@@ -19,33 +19,40 @@ class ViagemC extends Controller
         $viagem->setLocalOrigem($req->lorigem);
         $viagem->setLocalDestino($req->ldestino);
         $viagem->setPreco((float)$req->preco);
+        $viagem->setValorMotorista((float) $req->valor_motorista);
         $viagem->setDataInicio($req->dinicio);
         $viagem->setHorarioSaida($req->hinicio);
         $viagem->setObservacoes($req->observacoes);
         //verfica se preco esta no formato correto
         if($viagem->getPreco() <= 0){
-            return response()->json("O preço informado ".$viagem->getPreco()." esta com formato incorreto!");
+            return response()->json("O preço informado ".$viagem->getPreco()." esta com valor incorreto!");
+        }
+        //verfica se preco esta no formato correto
+        if($viagem->getValorMotorista() <= 0){
+            return response()->json("O valor da diária informado ".$viagem->getValorMotorista()." esta com valor incorreto!");
         }
         //instancia do objeto fornecedor
         $fornecedor = new Classes\FornecedorCL();
-        $fornecedor->setEmail($req->fornecedor);
-        if(!$fornecedor->verficarExistenciaEmail()){
-            return response()->json("O email '".$fornecedor->getEmail()."' do fornecedor não foi encontrado no banco!");
+        $fornecedor->setNome($req->fornecedor);
+        if(!$fornecedor->verficarNome()){
+            return response()->json("O nome '".$fornecedor->getNome()."' do fornecedor não foi encontrado no banco!");
         }
         //descobre o id do forncedor
-        $forncedor_model = $fornecedor->getObjetcColVal('email',$fornecedor->getEmail());
+        $forncedor_model = $fornecedor->getObjetcColVal('nome',$fornecedor->getNome());
         $fornecedor->setIdFornecedor($forncedor_model->id_fornecedor);
         //viagem com forncedor setado e configurado para cadastro
         $viagem->setFornecedorCl($fornecedor);
         //instancia do objeto cliente e cliente_viagem
         $cliente = new Classes\ClienteCL();
         $cliente_viagem = new Classes\ClienteViagemCL();
-        $cliente->setTelefone($req->telefone);
-        if(!$cliente->verficarExistenciaTelefone()){
-            return response()->json("O telefone do cliente ".$cliente->getTelefone().", não existe no banco");
+        //o name do campo é telefone, para desenvovedores , mas recebe o nome pois ta assim
+        #para os usaurios
+        $cliente->setNome($req->telefone);
+        if(!$cliente->verficarNome()){
+            return response()->json("O cliente ".$cliente->getNome().", não existe no banco");
         }
         //descobrir id do cliente
-        $cliente_model = $cliente->getObjetcColVal('telefone',$cliente->getTelefone());
+        $cliente_model = $cliente->getObjetcColVal('nome',$cliente->getNome());
         $cliente->setIdCliente($cliente_model->id_cliente);
         //setar quantidade de dependentes e cliente ja configurado para cadaastro
         $cliente_viagem->setQuantidade($req->dependente_quantidade);
@@ -177,34 +184,40 @@ class ViagemC extends Controller
         $viagem->setLocalOrigem($req->lorigem);
         $viagem->setLocalDestino($req->ldestino);
         $viagem->setPreco((float)$req->preco);
+        $viagem->setValorMotorista((float) $req->valor_motorista);
         $viagem->setDataInicio($req->dinicio);
         $viagem->setHorarioSaida($req->hinicio);
         $viagem->setObservacoes($req->observacoes);
         //verfica se preco esta no formato correto
         if($viagem->getPreco() <= 0){
 //            echo "O preço informado ".$viagem->getPreco()." esta com formato incorreto!";
-            return response()->json("O preço informado ".$viagem->getPreco()." esta com formato incorreto!");
+            return response()->json("O preço informado ".$viagem->getPreco()." esta com valor incorreto!");
+        }
+        if($viagem->getValorMotorista() <= 0){
+//            echo "O preço informado ".$viagem->getPreco()." esta com formato incorreto!";
+            return response()->json("O valor da diária informado ".$viagem->getPreco()." esta com valor incorreto!");
         }
         //instancia do objeto fornecedor
         $fornecedor = new Classes\FornecedorCL();
-        $fornecedor->setEmail($req->fornecedor);
-        if(!$fornecedor->verficarExistenciaEmail()){
-            return response()->json("O email '".$fornecedor->getEmail()."' do fornecedor não foi encontrado no banco!");
+        $fornecedor->setNome($req->fornecedor);
+        if(!$fornecedor->verficarNome()){
+            return response()->json("O nome '".$fornecedor->getNome()."' do fornecedor não foi encontrado no banco!");
         }
         //descobri id do forncedor
-        $forncedor_model = $fornecedor->getObjetcColVal('email',$fornecedor->getEmail());
+        $forncedor_model = $fornecedor->getObjetcColVal('nome',$fornecedor->getNome());
         $fornecedor->setIdFornecedor($forncedor_model->id_fornecedor);
         //viagem com forncedor setado e configurado para cadastro
         $viagem->setFornecedorCl($fornecedor);
         //instancia do objeto cliente e cliente_viagem
         $cliente = new Classes\ClienteCL();
         $cliente_viagem = new Classes\ClienteViagemCL();
-        $cliente->setTelefone($req->telefone);
-        if(!$cliente->verficarExistenciaTelefone()){
-            return response()->json("O telefone do cliente ".$cliente->getTelefone().", não existe no banco");
+        # esta com name telfone para prgamdores e o nome 'nome' para usuarios 
+        $cliente->setNome($req->telefone);
+        if(!$cliente->verficarNome()){
+            return response()->json("O cliente ".$cliente->getNome().", não existe no banco");
         }
         //descobrir id do cliente
-        $cliente_model = $cliente->getObjetcColVal('telefone',$cliente->getTelefone());
+        $cliente_model = $cliente->getObjetcColVal('nome',$cliente->getNome());
         $cliente->setIdCliente($cliente_model->id_cliente);
         //setar quantidade de dependentes e cliente ja configurado para cadaastro
         $cliente_viagem->setQuantidade($req->dependente_quantidade);

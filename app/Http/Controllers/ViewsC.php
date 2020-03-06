@@ -61,10 +61,10 @@ class ViewsC extends Controller
         if (session("logado")== true) {
             //buscar fornecedor,veiculo,motorista,cliente, para fornecer dados
             //ao datalist e aos autocompletes
-            $fornecedor = Fornecedor::orderBy('email')->get();
+            $fornecedor = Fornecedor::orderBy('nome')->get();
             $veiculo = Veiculo::orderBy('placa')->get();
             $motorista = Motorista::orderBy('nome')->get();
-            $cliente = Cliente::orderBy('telefone')->get();
+            $cliente = Cliente::orderBy('nome')->get();
             return view("admin.agendar_viagem", compact('fornecedor','veiculo','motorista','cliente'));
         }else{
             session(['msg' => "Realize o login para acessar a pagina!"]);
@@ -346,10 +346,10 @@ class ViewsC extends Controller
     public function alterarViagem($id){
         if(session("logado")== true && session("tipo_usuario")  == "administrador") {
             //realiza uma busca pelo id obtido e retorna apenas um unico objeto
-            $fornecedor = Fornecedor::orderBy('email')->get();
+            $fornecedor = Fornecedor::orderBy('nome')->get();
             $veiculo = Veiculo::orderBy('placa')->get();
             $motorista = Motorista::orderBy('nome')->get();
-            $cliente = Cliente::orderBy('telefone')->get();
+            $cliente = Cliente::orderBy('nome')->get();
             $viagem = new ViagemCL();
             $viagem->setIdViagem($id);
             $viagem_model = $viagem->consultarViagem();
@@ -361,5 +361,11 @@ class ViewsC extends Controller
             session(['msg' => "Realize o login para ter acesso a pagina"]);
             return redirect()->route("inicio");
         }
+    }
+
+    public function emitirFatura(Request $req, $id_fornecedor)
+    {
+        $fornecedor = Fornecedor::where('id_fornecedor',$id_fornecedor)->first();
+        return view('admin.fatura', compact('fornecedor'));
     }
 }

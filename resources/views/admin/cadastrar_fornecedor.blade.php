@@ -33,15 +33,15 @@
                 <div class="form-row">
                     <div class="col-md-6">
                         <label for="telefone">Telefone:</label>
-                        <input type="text" class="form-control" value="" name="telefone" required="" id="telefone" placeholder="+55 (88) 0 0000-0000">
+                        <input type="text" class="form-control" value="" name="telefone"  id="telefone" placeholder="+55 (88) 0 0000-0000">
                     </div>
                     <div class="col-md-6">
                         <label for="email">Email:</label>
-                        <input type="email" class="form-control" value="" name="email" id="email" required="" placeholder="email@exemplo.com">
+                        <input type="email" class="form-control" value="" name="email" id="email"  placeholder="email@exemplo.com">
                     </div>
                 </div>
 
-                <div class="form-row" style="margin-top: 15px">
+                <div class="form-row" style="margin-top: 15px; margin-bottom: 15px">
                     <div class="col-md-12">
                         <input type="submit" name="" value="Cadastrar" class="btn btn-verde btn-block">
                     </div>

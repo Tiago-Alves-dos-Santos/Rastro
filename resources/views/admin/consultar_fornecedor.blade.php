@@ -90,7 +90,10 @@
 
                         <div class="row">
                             <div class="col-md-12 d-flex justify-content-end">
+                            <a href="{{route('fatura.view',['id_fornecedor' => $f->id_fornecedor])}}" class="btn btn-danger mr-2">Fatura</a>
+
                                 <a href="{{ route('alter.fornecedor', ['id' => $f->id_fornecedor]) }}" class="btn btn-orange">Alterar Fornecedor</a>
+                                
                             </div>
                         </div>
                     </div>

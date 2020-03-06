@@ -84,7 +84,25 @@ class FornecedorCL
     {
         $this->email = $email;
     }
+    public function verficarNome()
+    {
+        $count = Fornecedor::where("nome",$this->getNome())->count();
+        if ($count > 0) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 
+    public function nomeAlter()
+    {
+        $count = Fornecedor::where("nome",$this->getNome())->where("id_fornecedor","<>",$this->getIdFornecedor())->count();
+        if ($count > 0) {
+            return true;
+        }else{
+            return false;
+        }
+    }
     /**
      * Verfica se existe outro email igual ja existente na base de dados
      * @return bool

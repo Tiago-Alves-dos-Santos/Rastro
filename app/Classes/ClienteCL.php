@@ -224,6 +224,24 @@ class ClienteCL
         }
     }
 
+    public function verficarNome(){
+        $count = Cliente::where("nome",$this->getNome())->count();
+        if ($count > 0) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function nomeAlter(){
+        $count = Cliente::where("nome",$this->getNome())->where('id_cliente','<>',$this->getIdCliente())->count();
+        if ($count > 0) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     /**
      * Verfica passaportes existentes no banco
      * @return bool
@@ -249,7 +267,7 @@ class ClienteCL
      * true == existe, false == nao existe
      */
     public function verficarExistenciaTelefone(){
-        $count = Cliente::where('telefone',$this->getTelefone())->count();
+        $count = Cliente::where('telefone',$this->getTelefone())->where('telefone','<>',null)->count();
         if ($count > 0){
             return true;
         }else{

@@ -23,6 +23,7 @@ class ViagemCL
     private $horario_saida;//timer
     private $horario_chegada;//timer
     public $preco;//double
+    public $valor_motorista;
     private $observacoes;//string
     public $status_viagem;//string(agendada,realizada,cancelada)
 
@@ -217,6 +218,27 @@ class ViagemCL
     public function setPreco($preco): void
     {
         $this->preco = $preco;
+    }
+
+     /**
+     * Get the value of valor_motorista
+     */ 
+    public function getValorMotorista()
+    {
+        return $this->valor_motorista;
+    }
+
+    
+    /**
+     * setValor_motorista
+     *
+     * @param  mixed $valor_motorista
+     *
+     * @return void
+     */
+    public function setValorMotorista($valor_motorista)
+    {
+        $this->valor_motorista = $valor_motorista;
     }
 
     /**
@@ -462,6 +484,7 @@ class ViagemCL
         $viagem->local_origem = $this->getLocalOrigem();
         $viagem->local_destino = $this->getLocalDestino();
         $viagem->preco = $this->getPreco();
+        $viagem->valor_motorista = $this->getValorMotorista();
         $viagem->data_inicio = $this->getDataInicio();
         $viagem->horario_saida = $this->getHorarioSaida();
         $viagem->observacoes = $this->getObservacoes();
@@ -482,6 +505,7 @@ class ViagemCL
             "local_origem" => $this->getLocalOrigem(),
             "local_destino" => $this->getLocalDestino(),
             "preco" => $this->getPreco(),
+            "valor_motorista" => $this->getValorMotorista(),
             "data_inicio" => $this->getDataInicio(),
             "horario_saida" => $this->getHorarioSaida(),
             "observacoes" => $this->getObservacoes(),
@@ -491,5 +515,7 @@ class ViagemCL
     }
 
 
+
+   
 }
 

@@ -51,18 +51,23 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="lorigem">Local Origem</label>
                             <input type="text" class="form-control required" name="lorigem" placeholder="Casa, hotel etc"  id="lorigem" data-nome="local origem">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="ldestino">Local Destino</label>
                             <input type="text" class="form-control required" name="ldestino" placeholder="Casa, hotel etc" id="ldestino" data-nome="local_destino">
 
                         </div>
-                        <div class="col-md-4">
-                            <label for="preco">Preço</label>
+                        <div class="col-md-3">
+                            <label for="preco">Custo da Viagem(Preço)</label>
                             <input type="text" class="form-control required" name="preco" placeholder="200.50" id="preco" data-nome="preco">
+                            <small id="emailHelp" class="form-text text-muted">Use o "." como separador decimal</small>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="vl_mt">Valor da diária</label>
+                            <input type="text" class="form-control required" name="valor_motorista" placeholder="50.78" id="vl_mt" data-nome="Valor do motorista">
                             <small id="emailHelp" class="form-text text-muted">Use o "." como separador decimal</small>
                         </div>
                     </div>
@@ -75,24 +80,24 @@
                         </div>
                         <div class="col-md-6">
                             <label for="hinicio">Hora inicio</label>
-                            <input type="time" class="form-control required" name="hinicio" id="hinicio" data-nome="Hora inicio">
+                            <input type="time" class="form-control" name="hinicio" id="hinicio" data-nome="Hora inicio">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="col-md-12">
                             <label for="fornecedor">Fornecedor || Operadora</label>
-                            <input type="text" class="form-control required" name="fornecedor" placeholder="email do fornecedor" id="fornecedor" data-nome="fornecedor || operadora" list="emails">
+                            <input type="text" class="form-control required" name="fornecedor" placeholder="nome da fornecedora" id="fornecedor" data-nome="fornecedor || operadora" list="emails">
 
                             <datalist id="emails">
                                 @foreach($fornecedor as $f)
-                                    <option value="{{$f->email}}"></option>
+                                    <option value="{{$f->nome}}"></option>
                                 @endforeach
                             </datalist>
                         </div>
                         <div class="col-md-12">
-                            <label for="observacoes">Observações</label>
-                            <textarea class="form-control required" name="observacoes" id="observacoes" rows="10" data-nome="observações"></textarea>
+                            <label for="observacoes">Descrição Viagem</label>
+                            <textarea class="form-control required" name="observacoes" id="observacoes" rows="10" data-nome="Descrição Viagem"></textarea>
                         </div>
                     </div>
                     <div class="d-flex justify-content-end" style="margin: 10px 0">
@@ -105,17 +110,17 @@
                     <div id="marcador">
                         <div class="form-row clientes" id="cl-1">
                             <div class="col-md-6">
-                                <label>Telefone do cliente</label>
+                                <label>Nome do cliente</label>
                                 <input type="text" class="form-control required" name="telefone" placeholder="Telefone do Cliente" data-nome="telefone cliente" list="telefones">
                                 <datalist id="telefones">
                                     @foreach($cliente as $c)
-                                        <option value="{{$c->telefone}}"></option>
+                                        <option value="{{$c->nome}}"></option>
                                     @endforeach
                                 </datalist>
                             </div>
                             <div class="col-md-6">
                                 <label for="dependente_quantidade">Quantidade dependentes</label>
-                                <input type="number" class="form-control required" name="dependente_quantidade" min="0"  placeholder="0" id="dependente_quantidade" data-nome="quantidade dependentes">
+                                <input type="number" class="form-control required" name="dependente_quantidade" min="0"  value="0" id="dependente_quantidade" data-nome="quantidade dependentes">
                             </div>
                         </div>
                         {{-- div de acordions --}}

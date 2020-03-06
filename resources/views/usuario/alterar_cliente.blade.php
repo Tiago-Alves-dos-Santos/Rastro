@@ -39,7 +39,7 @@
 
                     <div class="col-md-12 mb-3" >
                         <label for="cpf">País</label>
-                        <select class="custom-select" name="pais" id="pais" required="">
+                        <select class="custom-select" name="pais" id="pais">
                             <option value="África do Sul">África do Sul</option>
                             <option value="Albânia">Albânia</option>
                             <option value="Alemanha">Alemanha</option>
@@ -223,8 +223,8 @@
                     </div>
                     <div class="col-md-12 mb-3" >
                         <label for="cpf">CPF</label>
-                        <input type="text" class="form-control" value="{{$cliente->cpf}}" id="cpf" name="cpf" required="">
-                        <small id="cpf-msg" class="form-text text-muted">CPF obrigatorio!</small>
+                        <input type="text" class="form-control" value="{{$cliente->cpf}}" id="cpf" name="cpf">
+                        <small id="cpf-msg" class="form-text text-muted">CPF não obrigatorio!</small>
                         <div class="valid-feedback">
                             Tudo certo!
                         </div>
@@ -236,7 +236,7 @@
                     <div class="col-md-12 mb-3">
                         <label>Passaporte</label>
                         <input type="text" name="passaporte" id="passaporte" class="form-control" value="{{$cliente->passaporte}}" disabled>
-                        <small id="cpf-msg" class="form-text text-muted">Passaporte obrigatorio!</small>
+                        <small id="cpf-msg" class="form-text text-muted">Passaporte não obrigatorio!</small>
                         <div class="valid-feedback">
                             Tudo certo!
                         </div>
@@ -247,7 +247,7 @@
 
                     <div class="col-md-12 mb-3">
                         <label>Telefone</label>
-                        <input type="text" class="form-control" value="{{$cliente->telefone}}" name="telefone" required="" pattern="^[0-9 +()-]{1,}$"/>
+                        <input type="text" class="form-control" value="{{$cliente->telefone}}" name="telefone" pattern="^[0-9 +()-]{1,}$"/>
                         <div class="valid-feedback">
                             Tudo certo!
                         </div>
@@ -257,7 +257,7 @@
                     </div>
                     <div class="col-md-12 mb-3" >
                         <label for="cpf">Cidade</label>
-                        <input type="text" class="form-control" value="{{$cliente->cidade}}" required id="cidade" name="cidade" placeholder="Digite a cidade do usuario">
+                        <input type="text" class="form-control" value="{{$cliente->cidade}}"  id="cidade" name="cidade" placeholder="Digite a cidade do usuario">
                         <div class="valid-feedback">
                             Tudo certo!
                         </div>
@@ -270,7 +270,7 @@
                     <div class="col-md-12 mb-2" >
                         <label for="data-nascimento">Data nascimento</label>
                         <div class="input-group">
-                            <input type="date" class="form-control" id="data-nascimento" placeholder="Data de nascimento" aria-describedby="inputGroupPrepend" required name="data" value="{{$cliente->data_nasc}}">
+                            <input type="date" class="form-control" id="data-nascimento" placeholder="Data de nascimento" aria-describedby="inputGroupPrepend" name="data" value="{{$cliente->data_nasc}}">
                             <div class="valid-feedback">
                                 Tudo certo!
                             </div>
@@ -357,14 +357,14 @@
             $(pass).val("");
             $(pass).attr({"disabled":""});
             $(pass).removeAttr("required");
-            $(cpf).attr({"required":""});
+           // $(cpf).attr({"required":""});
             $(cpf).removeAttr("disabled");
             $(cpf).val("{{$cliente->cpf}}");
         }else{
             $(cpf).val("");
             $(cpf).attr({"disabled":""});
             $(cpf).removeAttr("required");
-            $(pass).attr({"required":""});
+           // $(pass).attr({"required":""});
             $(pass).removeAttr("disabled");
             $(pass).val("{{$cliente->passaporte}}");
         }

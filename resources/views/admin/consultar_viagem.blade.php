@@ -112,6 +112,7 @@
                             <ul style="list-style: none;">
                                 <li class="card-text">Status: {{$viagem->status_viagem}}</li>
                                 <li class="card-text">Preço: {{$viagem->preco}}</li>
+                                <li class="card-text">Preço: {{$viagem->valor_motorista}}</li>
                                 <li class="card-text">Fornecedor(operadora): {{$viagem->nome_fornecedor}}</li>
                                 <li class="card-text">Fornecedor(operadora) email: {{$viagem->email}}</li>
                             </ul>
@@ -144,7 +145,7 @@
 
                         </div>
                         <div class="col-md-12">
-                            <h6>Observaões:</h6>
+                            <h6>Descrição Viagem:</h6>
                             <p>{{$viagem->observacoes}}</p>
                         </div>
                     </div>
@@ -160,9 +161,9 @@
                             @if(session("tipo_usuario") == "administrador")
                             <a href="{{route('admin.pdf',['id' => $viagem->id_viagem])}}" target="_blank" class="btn btn-primary mb-2" id="pdf-viagem" style="margin-right: 10px">Ordem de Serviço</a>
                             @endif
-                            @if(session("tipo_usuario") == "administrador" && $viagem->status_viagem != "Concluida")
+                            {{-- @if(session("tipo_usuario") == "administrador" && $viagem->status_viagem != "Concluida") --}}
                             <a href="{{route('alter.viagem',['id' => $viagem->id_viagem])}}" class="btn btn-warning text-light mb-2" class="alterar-viagem">Alterar Viagem</a>
-                            @endif
+                            {{-- @endif --}}
 
 
                         </div>

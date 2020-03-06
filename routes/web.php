@@ -46,6 +46,7 @@ Route::prefix("/view")->group(function(){
         Route::get("/consultar-motorista","ViewsC@consultarMotorista")->name("read.motorista");
         Route::get('/consultar-veiculo', "ViewsC@consultarVeiculo")->name("read.veiculo");
         Route::get('/consultar-fornecedor', "ViewsC@consultarFornecedor")->name("read.fornecedor");
+        Route::get('/emitir-fatura/{id_fornecedor}', 'ViewsC@emitirFatura')->where('id_fornecedor', '[0-9]+')->name('fatura.view');
         Route::get('/consultar-viagem', "ViewsC@consultarViagem")->name("read.viagem");
         Route::get('/consultar-despesas/{id}', "ViewsC@consultarDespesa")->where('id', '[0-9]+')->name('read.despesa');
         Route::get('/buscar-viagem-unica/{id}','ViagemC@viewViagemUnica')->where('id', '[0-9]+')->name('viagem.search');
@@ -80,6 +81,8 @@ Route::prefix("/usuario")->group(function(){
 
 //rotas destinadas as atividades de um usuario do tipo admisnistrador
 Route::prefix("/admin")->group(function(){
+    //emitir fatura do fornecedor
+    Route::post('/emitir-fatura-fornecedor','MotoristaVViagemC@emitirFatura')->name('admin.fatura');
     Route::post('/cadastrar-motorista',"MotoristaC@cadastrar")->name("admin.create.motorista");
     Route::post('/cadastrar-usuario',"UsuarioC@cadastrar")->name("admin.create.usuario");
     Route::post('/cadastrar-veiculo',"VeiculoC@cadastrar")->name("admin.create.veiculo");

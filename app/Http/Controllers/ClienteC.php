@@ -20,13 +20,13 @@ class ClienteC extends Controller
         if ($req->nome == "") {
             session(["msg"=>"Por favor! Informe um nome não vazio"]);
             return redirect()->route("create.cliente");
-        }else if ($req->cidade == "") {
-            session(["msg"=>"Por favor! Informe uma cidade para o cliente!"]);
-            return redirect()->route("create.cliente");
-        }else if (strlen($req->cpf) < 12 && strlen($req->cpf)> 1) {
-            session(["msg"=>"Por favor! Informe o CPF com tamanho certo"]);
-            return redirect()->route("create.cliente");
-        }else if (!$cliente->validaCPF($req->cpf) && $req->cpf != "") {
+         }//else if ($req->cidade == "") {
+        //     session(["msg"=>"Por favor! Informe uma cidade para o cliente!"]);
+        //     return redirect()->route("create.cliente");
+        // }else if (strlen($req->cpf) < 12 && strlen($req->cpf)> 1) {
+        //     session(["msg"=>"Por favor! Informe o CPF com tamanho certo"]);
+        //     return redirect()->route("create.cliente");
+        /* } */else if (!$cliente->validaCPF($req->cpf) && $req->cpf != "") {
             session(["msg"=>"Por favor! Informe um CPF válido"]);
             return redirect()->route("create.cliente");
         }
@@ -42,7 +42,11 @@ class ClienteC extends Controller
 
         /** @var TYPE_NAME $motorista */
         $motorista->setCpf($cliente->getCpf());
-
+        //verficar nome do cliente
+        if($cliente->verficarNome()){
+            session(["msg"=>"Impossivel cadastrar! Nome de cliente já existente"]);
+            return redirect()->route("create.cliente");
+        }
         //se cpf ou rg de cliente ou motorista existir nao faz o cadastro
         if ($cliente->verficarCpf() || $cliente->verficarPassaporte() ||$motorista->verficarCpf()) {
         	if($cliente->getCpf() == ""){
@@ -68,13 +72,13 @@ class ClienteC extends Controller
         if ($req->nome == "") {
             session(["msg"=>"Por favor! Informe um nome não vazio"]);
             return redirect()->route("alter.cliente", ['id'=>$cliente->getIdCliente()]);
-        }else if ($req->cidade == "") {
-            session(["msg"=>"Por favor! Informe uma cidade para o cliente!"]);
-            return redirect()->route("alter.cliente", ['id'=>$cliente->getIdCliente()]);
-        }else if (strlen($req->cpf) < 12 && strlen($req->cpf)> 1) {
-            session(["msg"=>"Por favor! Informe o cpf com tamanho certo"]);
-            return redirect()->route("alter.cliente", ['id'=>$cliente->getIdCliente()]);
-        }else if (!$cliente->validaCPF($req->cpf) && $req->cpf != "") {
+        }//else if ($req->cidade == "") {
+        //     session(["msg"=>"Por favor! Informe uma cidade para o cliente!"]);
+        //     return redirect()->route("alter.cliente", ['id'=>$cliente->getIdCliente()]);
+        // }else if (strlen($req->cpf) < 12 && strlen($req->cpf)> 1) {
+        //     session(["msg"=>"Por favor! Informe o cpf com tamanho certo"]);
+        //     return redirect()->route("alter.cliente", ['id'=>$cliente->getIdCliente()]);
+        /*}*/else if (!$cliente->validaCPF($req->cpf) && $req->cpf != "") {
             session(["msg"=>"Por favor! Informe um cpf valido"]);
             return redirect()->route("alter.cliente", ['id'=>$cliente->getIdCliente()]);
         }
@@ -89,6 +93,11 @@ class ClienteC extends Controller
         $cliente->setPais($req->pais);
 
         $motorista->setCpf($cliente->getCpf());
+        //verficar nome do cliente
+        if($cliente->nomeAlter()){
+            session(["msg"=>"Impossivel cadastrar! Nome de cliente já existente"]);
+            return redirect()->route("alter.cliente",['id'=>$cliente->getIdCliente()]);
+        }
         //verfica todos os cpfs de motorista e verfica todos cpf de clientes exeto o do mesmo
         //que esta fazendo a alteração
         if ($cliente->existenciaCpfAlter() || $cliente->existenciaPassaporteAlter() || $motorista->verficarCpf()) {

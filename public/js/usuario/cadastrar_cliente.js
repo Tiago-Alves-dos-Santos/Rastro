@@ -66,7 +66,7 @@ $(function(){
             //passaporte nao é mais requerido
             $(pass).removeAttr("required");
             //torna cpf requerido
-            $(cpf).attr({"required":""});
+           // $(cpf).attr({"required":""});
             //habilta campo cpf
             $(cpf).removeAttr("disabled");
         }else{
@@ -77,7 +77,7 @@ $(function(){
             //torna cpf inrequerido
             $(cpf).removeAttr("required");
             //torna campo passaprote requerido
-            $(pass).attr({"required":""});
+          //  $(pass).attr({"required":""});
             //torna campo passaporte habiliatado
             $(pass).removeAttr("disabled");
         }

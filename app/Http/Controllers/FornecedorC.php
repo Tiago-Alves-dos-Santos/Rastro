@@ -19,7 +19,7 @@ class FornecedorC extends Controller
     	$fornecedor->setTelefone($req->telefone);
     	$fornecedor->setEmail($req->email);
     	//verfica se email aser cadastrado já é existente
-    	if ($fornecedor->verficarExistenciaEmail()) {
+    	if ($fornecedor->verficarNome()) {
     		session(["msg"=>"O fornecedor a ser cadastrado já é existene na base de dados!"]);
     		return redirect()->route("create.fornecedor");
     	}else{
@@ -40,7 +40,7 @@ class FornecedorC extends Controller
         $fornecedor->setNome($req->nome);
         $fornecedor->setTelefone($req->telefone);
         $fornecedor->setEmail($req->email);
-        if ($fornecedor->existenciaEmailAlter()) {
+        if ($fornecedor->nomeAlter()) {
             session(["msg"=>"O fornecedor a ser alterado já é existene na base de dados!"]);
             return redirect()->route("read.fornecedor");
         }else{
