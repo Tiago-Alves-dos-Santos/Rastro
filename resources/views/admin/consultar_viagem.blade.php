@@ -111,9 +111,9 @@
                         <div class="col-md-6">
                             <ul style="list-style: none;">
                                 <li class="card-text">Status: {{$viagem->status_viagem}}</li>
-                                <li class="card-text">Preço: {{$viagem->preco}}</li>
-                                <li class="card-text">Preço: {{$viagem->valor_motorista}}</li>
-                                <li class="card-text">Fornecedor(operadora): {{$viagem->nome_fornecedor}}</li>
+                                <li class="card-text">Custo da Viagem(Preço): {{$viagem->preco}}</li>
+                                <li class="card-text">Valor da diária: {{$viagem->valor_motorista}}</li>
+                                <li class="card-text">Fornecedor(operadora) nome: {{$viagem->nome_fornecedor}}</li>
                                 <li class="card-text">Fornecedor(operadora) email: {{$viagem->email}}</li>
                             </ul>
                         </div>

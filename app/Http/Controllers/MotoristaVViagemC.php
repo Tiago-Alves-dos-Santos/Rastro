@@ -65,8 +65,13 @@ class MotoristaVViagemC extends Controller
         $viagem->setDataInicio($req->expedicao);
         $data_expedicao = date("d/m/Y", strtotime($viagem->getDataInicio()));
         $data_vencimento = date("d/m/Y", strtotime($req->vencimento));
+        $data_minima = date("m-Y", strtotime($req->expedicao));
+        // $data_minima = $viagem->getDataInicio();
+        $data_minima = '01-'.$data_minima;
+        $data_minima = date('Y-m-d',strtotime($data_minima));
+        // dd($data_minima);
         //busca viagens e clientes realizadas por um forncedor a partir de uma data maxima
-        $viagem_fornecedor = DB::table("viagem")->JOIN("fornecedor", "fornecedor.id_fornecedor","=","viagem.id_fornecedor")->JOIN("clientes_viagem", "clientes_viagem.id_viagem","=","viagem.id_viagem")->JOIN("clientes", "clientes.id_cliente","=","clientes_viagem.id_cliente")->select('*','fornecedor.nome as nome_fornecedor','clientes.nome as nome_cliente')->where("viagem.data_inicio","<=",$viagem->getDataInicio())->where('fornecedor.id_fornecedor', $fornecedor_bd->id_fornecedor)->orderBy('viagem.data_inicio','asc')->get(); 
+        $viagem_fornecedor = DB::table("viagem")->JOIN("fornecedor", "fornecedor.id_fornecedor","=","viagem.id_fornecedor")->JOIN("clientes_viagem", "clientes_viagem.id_viagem","=","viagem.id_viagem")->JOIN("clientes", "clientes.id_cliente","=","clientes_viagem.id_cliente")->select('*','fornecedor.nome as nome_fornecedor','clientes.nome as nome_cliente')->where("viagem.data_inicio","<=",$viagem->getDataInicio())->where('viagem.data_inicio','>=',$data_minima)->where('fornecedor.id_fornecedor', $fornecedor_bd->id_fornecedor)->orderBy('viagem.data_inicio','asc')->get(); 
         #gerar pdf
         $valor_total = 0;
         foreach($viagem_fornecedor as $viagem){

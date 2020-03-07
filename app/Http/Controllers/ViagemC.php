@@ -443,6 +443,7 @@ class ViagemC extends Controller
         //se o usuario nao tiver acesso administrador ela nao podera ver o preço
         if(session("tipo_usuario") == "usuario"){
             $viagem_unica->preco = "Sem permissão!";
+            $viagem_unica->valor_motorista = "Sem permissão!";
         }
         //formata a data para o usuario
         $viagem_unica->data_inicio = date('d/m/Y',strtotime($viagem_unica->data_inicio));

@@ -59,7 +59,8 @@
             <ul style="list-style: none">
                 <li>Local de destino: {{$viagem_unica->local_destino}}</li>
                 <li>Status: {{$viagem_unica->status_viagem}}</li>
-                <li>Valor da viagem: R$ {{$viagem_unica->preco}}</li>
+                <li>Custo da Viagem(Preço R$): {{$viagem_unica->preco}}</li>
+                <li>Valor da diária(R$): {{$viagem_unica->valor_motorista}}</li>
             </ul>
         </div>
     </div>

@@ -226,6 +226,7 @@ class ViewsC extends Controller
                 $vg->data_inicio = date('d/m/Y',strtotime($vg->data_inicio));
                 if(session("tipo_usuario") == "usuario"){
                     $vg->preco = "Sem permissão!";
+                    $vg->valor_motorista = "Sem permissão!";
                 }
             }
             return view("admin.consultar_viagem", compact('viagem_model'));

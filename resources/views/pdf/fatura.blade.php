@@ -127,7 +127,11 @@
             </td>
         </tr>
         @empty
-            
+            <tr>
+                <td colspan="4" style="text-align: center">
+                    <h3>O cliente <span style="color: #03299e">{{$fornecedor_bd->nome}}</span> não possui dados neste mês</h3>
+                </td>
+            </tr>
         @endforelse
         
         {{-- Colocar campos em branco apos laço de repetiçao --}}
