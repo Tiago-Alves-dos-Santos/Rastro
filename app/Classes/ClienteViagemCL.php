@@ -1,17 +1,11 @@
 <?php
 namespace App\Classes;
-/**
- *
- */
-
-use App\Models\ClienteViagem;
-use Exception;
-use Illuminate\Support\Facades\DB;
-use App\Classes\ClienteCl;
-use App\Classes\ViagemCL;
-//models
-use App\Models\Cliente;
 use App\Models\Viagem;
+use App\Models\Cliente;
+//models
+use App\Classes\ViagemCL;
+use App\Classes\ClienteCl;
+use App\Models\ClienteViagem;
 
 class ClienteViagemCL
 {

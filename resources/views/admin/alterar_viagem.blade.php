@@ -81,7 +81,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="hinicio">Hora inicio</label>
-                            <input type="time" class="form-control" name="hinicio" id="hinicio" data-nome="Hora inicio" value="{{$viagem_unica->horario_saida}}">
+                            <input type="time" class="form-control required" name="hinicio" id="hinicio" data-nome="Hora inicio" value="{{$viagem_unica->horario_saida}}">
                         </div>
                     </div>
 

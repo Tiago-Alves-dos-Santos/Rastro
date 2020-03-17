@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
+use App\Models\Fornecedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 //models
@@ -79,9 +81,9 @@ class ViagemC extends Controller
             $data_brasil = (string) $viagem->getDataInicio();
             $data_brasil = date('d/m/Y',strtotime($data_brasil));
             //verfica os motoristas disponiveis na data colocada
-            if ($viagem->motoristasDisponiveis($ids_motorista) == false){
-                return response()->json("O motorista ".$motorista_model->nome." não esta disponivel para data ".$data_brasil."! Excute a tarefa rotina de viagens e tente novamente");
-            }
+            // if ($viagem->motoristasDisponiveis($ids_motorista) == false){
+            //     return response()->json("O motorista ".$motorista_model->nome." não esta disponivel para data ".$data_brasil."! Excute a tarefa rotina de viagens e tente novamente");
+            // }
 
         }
         //instancia do objeto veiculo
@@ -101,11 +103,11 @@ class ViagemC extends Controller
             $veiculo_model = $veiculo->getObjetcColVal('placa',$placas[$i]);
             //buscar disponibilidade do veiculo pelo dia
             $ids_veiculos[] = $veiculo_model->id_veiculo;
-            if ($viagem->veiculosDisponiveis($ids_veiculos) == false){
-                $data_brasil = (string) $viagem->getDataInicio();
-                $data_brasil = date('d/m/Y',strtotime($data_brasil));
-                return response()->json("O veiculo ".$veiculo_model->placa." não esta disponivel para a data ".$data_brasil."! Verfique os veiculos disponiveis e tente novamente!");
-            }
+            // if ($viagem->veiculosDisponiveis($ids_veiculos) == false){
+            //     $data_brasil = (string) $viagem->getDataInicio();
+            //     $data_brasil = date('d/m/Y',strtotime($data_brasil));
+            //     return response()->json("O veiculo ".$veiculo_model->placa." não esta disponivel para a data ".$data_brasil."! Verfique os veiculos disponiveis e tente novamente!");
+            // }
 
         }
 
@@ -211,7 +213,7 @@ class ViagemC extends Controller
         //instancia do objeto cliente e cliente_viagem
         $cliente = new Classes\ClienteCL();
         $cliente_viagem = new Classes\ClienteViagemCL();
-        # esta com name telfone para prgamdores e o nome 'nome' para usuarios 
+        # esta com name telfone para prgamdores e o nome 'nome' para usuarios
         $cliente->setNome($req->telefone);
         if(!$cliente->verficarNome()){
             return response()->json("O cliente ".$cliente->getNome().", não existe no banco");
@@ -302,9 +304,9 @@ class ViagemC extends Controller
                     $ids_motorista[] = $motorista_model->id_motorista;
                     $data_brasil = (string) $viagem->getDataInicio();
                     $data_brasil = date('d/m/Y',strtotime($data_brasil));
-                    if ($viagem->motoristasDisponiveis($ids_motorista) == false){
-                        return response()->json("O motorista ".$motorista_model->nome." não esta disponivel para data ".$data_brasil."! Excute a tarefa rotina de viagens e tente novamente");
-                    }
+                    // if ($viagem->motoristasDisponiveis($ids_motorista) == false){
+                    //     return response()->json("O motorista ".$motorista_model->nome." não esta disponivel para data ".$data_brasil."! Excute a tarefa rotina de viagens e tente novamente");
+                    // }
                 }
                 //depois de verificar as disponibilidades do motoristas novos, ja que ignoramos os existentes do
                 // passado pois ja sabemos que eles estao disponiveis para o dia, ja que a existiam antes
@@ -324,9 +326,9 @@ class ViagemC extends Controller
                         $ids_veiculos[] = $veiculo_model->id_veiculo;
                         $data_brasil = (string) $viagem->getDataInicio();
                         $data_brasil = date('d/m/Y',strtotime($data_brasil));
-                        if ($viagem->veiculosDisponiveis($ids_veiculos) == false){
-                            return response()->json("O veiculo ".$veiculo_model->placa." não esta disponivel para a data ".$data_brasil."! Verfique os veiculos disponiveis e tente novamente!");
-                        }
+                        // if ($viagem->veiculosDisponiveis($ids_veiculos) == false){
+                        //     return response()->json("O veiculo ".$veiculo_model->placa." não esta disponivel para a data ".$data_brasil."! Verfique os veiculos disponiveis e tente novamente!");
+                        // }
                     }
                 }
 
@@ -349,10 +351,10 @@ class ViagemC extends Controller
                 $ids_motorista[] = $motorista_model->id_motorista;
                 $data_brasil = (string) $viagem->getDataInicio();
                 $data_brasil = date('d/m/Y',strtotime($data_brasil));
-                if ($viagem->motoristasDisponiveis($ids_motorista) == false){
-//                echo "O motorista ".$motorista_model->nome." esta indisponivel para data ".$data_brasil."! Excute a tarfa rotina de viagens e tente novamente";
-                    return response()->json("O motorista ".$motorista_model->nome." esta indisponivel para data ".$data_brasil."! Excute a tarfa rotina de viagens e tente novamente");
-                }
+//                 if ($viagem->motoristasDisponiveis($ids_motorista) == false){
+// //                echo "O motorista ".$motorista_model->nome." esta indisponivel para data ".$data_brasil."! Excute a tarfa rotina de viagens e tente novamente";
+//                     return response()->json("O motorista ".$motorista_model->nome." esta indisponivel para data ".$data_brasil."! Excute a tarfa rotina de viagens e tente novamente");
+//                 }
 
             }
 
@@ -361,12 +363,12 @@ class ViagemC extends Controller
                 $veiculo_model = $veiculo->getObjetcColVal('placa',$placas[$i]);
                 //buscar disponibilidade do veiculo pelo dia
                 $ids_veiculos[] = $veiculo_model->id_veiculo;
-                if ($viagem->veiculosDisponiveis($ids_veiculos) == false){
-                    $data_brasil = (string) $viagem->getDataInicio();
-                    $data_brasil = date('d/m/Y',strtotime($data_brasil));
-//                echo "O veiculo ".$veiculo_model->placa." não esta indisponivel para a data ".$data_brasil."! Verfique os veiculos disponiveis e tente novamente!";
-                    return response()->json("O veiculo ".$veiculo_model->placa." não esta disponivel para a data ".$data_brasil."! Verfique os veiculos disponiveis e tente novamente!");
-                }
+//                 if ($viagem->veiculosDisponiveis($ids_veiculos) == false){
+//                     $data_brasil = (string) $viagem->getDataInicio();
+//                     $data_brasil = date('d/m/Y',strtotime($data_brasil));
+// //                echo "O veiculo ".$veiculo_model->placa." não esta indisponivel para a data ".$data_brasil."! Verfique os veiculos disponiveis e tente novamente!";
+//                     return response()->json("O veiculo ".$veiculo_model->placa." não esta disponivel para a data ".$data_brasil."! Verfique os veiculos disponiveis e tente novamente!");
+//                 }
 
             }
         }
@@ -508,64 +510,58 @@ class ViagemC extends Controller
     }
     //realiza o filtro das viagens
     public function filtrar(Request $req){
-        if(is_null($req->cliente)){
+
+        if(is_null($req->cliente) || is_null($req->data_cliente)){
             $req->cliente = "*";
+            $req->data_cliente = "*";
         }
-        if(is_null($req->motorista)){
+        if(is_null($req->motorista) || is_null($req->data_motorista)){
             $req->motorista = "*";
+            $req->data_motorista = "*";
+        }
+        if(is_null($req->fornecedor) || is_null($req->data_fornecedor)){
+            $req->date_max = "*";
+            $req->data_fornecedor = "*";
         }
         if(is_null($req->disponibilidade)){
             $req->disponibilidade = "*";
-        }
-        if(is_null($req->date_max)){
-            $req->date_max = "*";
-        }
-        if(is_null($req->date_min)){
-            $req->date_min = "*";
-        }
-        //verfica se intervalo de datas possui logica
-        if($req->date_min != "*" && $req->date_max != "*"){
-            if(strtotime($req->date_min) > strtotime($req->date_max)){
-                session(['msg' => "Erro no filtro! data minima maior que data maxima!"]);
-                return redirect()->route("read.viagem");
-            }
         }
         $viagem_model = null;
         $filtro = $req->except(['_token']);
         $cliente = new Classes\ClienteCL();
         $motorista = new Classes\MotoristaCL();
         $viagem = new Classes\ViagemCL();
+        $fornecedor = new Classes\FornecedorCL();
 
         $cliente->setNome($req->cliente);
         $motorista->setNome($req->motorista);
-        $viagem->setDataInicio($req->date_min);
-        $viagem->setDataTermino($req->date_max);
+        $fornecedor->setNome($req->fornecedor);
         $viagem->setStatusViagem($req->disponibilidade);
         //retorna o filtro de acordo com o tipo  de usuario
-        if(session('tipo_usuario') == "administrador"){
-            $viagem_model = $viagem->filtrar(10,true,$cliente,$motorista);
-        }else{
-            //se nao for administrador a data minima ser buscada tem q ser igual ou maior q a data atual
-            //caso ele digite uma data menor do que a data atual, realizamos um conversao
-            if(strtotime($req->date_min) < strtotime(date('Y/m/d'))){
-                $viagem->setDataInicio(date('Y/m/d'));
-                $viagem_model = $viagem->filtrar(10,false,$cliente,$motorista);
-            }else{
-                //caso data do usuario obedeça a regra nao fazemos uma conversao
-                $viagem_model = $viagem->filtrar(10,false,$cliente,$motorista);
-            }
-
+        if($viagem->getStatusViagem() != "*"){
+            $viagem_model = $viagem->filtrar(10);
+        }else if($cliente->getNome() != "*"){
+            $viagem_model = $viagem->filtrarCliente(10,$cliente,$req->data_cliente);
+        }else if($motorista->getNome() != "*"){
+            $viagem_model = $viagem->filtrarMotorista(10,$motorista,$req->data_motorista);
+        }else if($fornecedor->getNome() != "*"){
+            $viagem_model = $viagem->filtrarFornecedor(10,$fornecedor,$req->data_fornecedor);
         }
+
         //depois de realizar o filtro convertemos a data para o brasileiro
         foreach ($viagem_model as $vg){
             $vg->data_inicio = date('d/m/Y',strtotime($vg->data_inicio));
             //e invalidamos o preço para os nao administradores
             if(session("tipo_usuario") == "usuario"){
                 $vg->preco = "Sem permissão!";
+                $vg->valor_motorista = "Sem permissão!";
             }
         }
-
-        return view('admin.consultar_viagem',compact('viagem_model','filtro'));
+        //fazer filtros de cliente,fornecedor e moorista com datalist
+        $cliente = Cliente::orderBy('nome')->get();
+        $fornecedor = Fornecedor::orderBy('nome')->get();
+        $motorista = Models\Motorista::orderBy('nome')->get();
+        return view('admin.consultar_viagem',compact('viagem_model','filtro','cliente','fornecedor','motorista'));
     }
     //criamos um pdf de uma unica viagem,ordem de serviçço
     public function printPdf($id){

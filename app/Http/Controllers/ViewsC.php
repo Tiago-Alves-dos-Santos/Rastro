@@ -229,7 +229,11 @@ class ViewsC extends Controller
                     $vg->valor_motorista = "Sem permissão!";
                 }
             }
-            return view("admin.consultar_viagem", compact('viagem_model'));
+            //fazer filtros de clientes,fornecedor e motorista com datalist
+            $cliente = Cliente::orderBy('nome')->get();
+            $fornecedor = Fornecedor::orderBy('nome')->get();
+            $motorista = Motorista::orderBy('nome')->get();
+            return view("admin.consultar_viagem", compact('viagem_model','cliente','fornecedor','motorista'));
         }else{
             session(['msg' => "Realize o login para ter acesso a pagina"]);
             return redirect()->route("inicio");

@@ -37,28 +37,59 @@
                 @csrf
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="data_inicio">Data minima</label>
-                        <input type="date" name="date_min" class="form-control" id="data_inicio">
+                        <label>Nome Cliente</label>
+                        <input type="text" name="cliente" class="form-control cliente" id="cliente" placeholder="Nome cliente" list="clientes">
+                        <datalist id="clientes">
+                            @forelse($cliente as $c)
+                                <option value="{{$c->nome}}"></option>
+                            @empty
+                                <option value="Banco Vazio"></option>
+                            @endforelse
+                        </datalist>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="data_termino">Data maxima</label>
-                        <input type="date" name="date_max" class="form-control" id="data_termino">
+                        <label>Mês e ano</label>
+                        <input type="month" name="data_cliente" class="form-control cliente" id="data_cliente">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-6">
-                        <label>Nome cliente</label>
-                        <input type="text" name="cliente" class="form-control" name="id_cliente" value="" placeholder="Nome cliente">
+                        <label>Nome Fornecedor</label>
+                        <input type="text" name="fornecedor" class="form-control fornecedor" value="" placeholder="Nome fornecedor" list="forncedors">
+                        <datalist id="forncedors">
+                            @forelse($fornecedor as $f)
+                                <option value="{{$f->nome}}"></option>
+                            @empty
+                                <option value="Banco Vazio"></option>
+                            @endforelse
+                        </datalist>
                     </div>
                     <div class="col-md-6">
-                        <label>Nome motorista</label>
-                        <input type="text" name="motorista" class="form-control" name="id_motorista" value="" placeholder="Nome motorista">
+                        <label>Mês e ano</label>
+                        <input type="month" name="data_fornecedor" class="form-control fornecedor" value="" placeholder="Nome motorista">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label for="">Nome motorista</label>
+                        <input type="text" name="motorista" class="form-control motorista" value="" placeholder="Nome motorista" list="motoristas">
+                        <datalist id="motoristas">
+                            @forelse($motorista as $m)
+                                <option value="{{$m->nome}}"></option>
+                            @empty
+                                <option value="Banco Vazio"></option>
+                            @endforelse
+                        </datalist>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Mês e ano</label>
+                        <input type="month" name="data_motorista" class="form-control motorista" value="">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label>Status da viagem</label>
-                        <select class="custom-select" name="disponibilidade">
+                        <select class="custom-select status" name="disponibilidade">
                             <option value="">Selecione para busca</option>
                             <option value="Agendada">Agendada</option>
                             <option value="Em andamento">Em andamento</option>

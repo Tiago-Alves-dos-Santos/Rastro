@@ -222,13 +222,13 @@ class ViagemCL
 
      /**
      * Get the value of valor_motorista
-     */ 
+     */
     public function getValorMotorista()
     {
         return $this->valor_motorista;
     }
 
-    
+
     /**
      * setValor_motorista
      *
@@ -461,16 +461,43 @@ class ViagemCL
      * @param MotoristaCL $motorista
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function filtrar($paginas,$admin,ClienteCL $cliente, MotoristaCL $motorista){
-        if($admin){
-            $viagem = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->JOIN('clientes_viagem','clientes_viagem.id_viagem','=','viagem.id_viagem')->JOIN('clientes','clientes.id_cliente','=','clientes_viagem.id_cliente')->JOIN('fornecedor','fornecedor.id_fornecedor','=','viagem.id_fornecedor')->select('*','fornecedor.nome as nome_fornecedor','clientes.telefone as telefone_cl','clientes.cpf as cpf_cliente','motorista.nome as nome_motorista','motorista.cpf as cpf_motorista','clientes.nome as nome_cliente')->where('clientes.nome','like','%'.$cliente->getNome().'%')->orWhere('motorista.nome','like','%'.$motorista->getNome().'%')->orWhere('viagem.status_viagem','like','%'.$this->getStatusViagem().'%')->orWhereRaw('viagem.data_inicio between ? and ?',[$this->getDataInicio(),$this->getDataTermino()])->orderBy('viagem.data_inicio','desc')->orderBy('viagem.horario_saida','desc')->groupBy('viagem.id_viagem')->paginate($paginas);
+    public function filtrar($paginas){
+            $viagem = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->JOIN('clientes_viagem','clientes_viagem.id_viagem','=','viagem.id_viagem')->JOIN('clientes','clientes.id_cliente','=','clientes_viagem.id_cliente')->JOIN('fornecedor','fornecedor.id_fornecedor','=','viagem.id_fornecedor')->select('*','fornecedor.nome as nome_fornecedor','clientes.telefone as telefone_cl','clientes.cpf as cpf_cliente','motorista.nome as nome_motorista','motorista.cpf as cpf_motorista','clientes.nome as nome_cliente')->where('viagem.status_viagem',$this->getStatusViagem())->groupBy('viagem.id_viagem')->orderBy('viagem.horario_saida','desc')->paginate($paginas);
 
             return $viagem;
-        }else{
-            $viagem = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->JOIN('clientes_viagem','clientes_viagem.id_viagem','=','viagem.id_viagem')->JOIN('clientes','clientes.id_cliente','=','clientes_viagem.id_cliente')->JOIN('fornecedor','fornecedor.id_fornecedor','=','viagem.id_fornecedor')->select('*','fornecedor.nome as nome_fornecedor','clientes.telefone as telefone_cl','clientes.cpf as cpf_cliente','motorista.nome as nome_motorista','motorista.cpf as cpf_motorista','clientes.nome as nome_cliente')->where('viagem.data_inicio', ">=",date('Y-m-d'))->where('clientes.nome','like','%'.$cliente->getNome().'%')->orWhere('motorista.nome','like','%'.$motorista->getNome().'%')->orWhere('viagem.status_viagem','like','%'.$this->getStatusViagem().'%')->orWhereRaw('viagem.data_inicio between ? and ?',[$this->getDataInicio(),$this->getDataTermino()])->orderBy('viagem.data_inicio','desc')->orderBy('viagem.horario_saida','desc')->groupBy('viagem.id_viagem')->paginate($paginas);
+    }
 
-            return $viagem;
-        }
+    public function filtrarFornecedor($paginas, FornecedorCL $fornecedor,$data){
+        $data_minima = date("m-Y", strtotime($data));
+        // $data_minima = $viagem->getDataInicio();
+        $data_minima = '01-'.$data_minima;
+        $data_minima = date('Y-m-d',strtotime($data_minima));
+
+        $viagem = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->JOIN('clientes_viagem','clientes_viagem.id_viagem','=','viagem.id_viagem')->JOIN('clientes','clientes.id_cliente','=','clientes_viagem.id_cliente')->JOIN('fornecedor','fornecedor.id_fornecedor','=','viagem.id_fornecedor')->select('*','fornecedor.nome as nome_fornecedor','clientes.telefone as telefone_cl','clientes.cpf as cpf_cliente','motorista.nome as nome_motorista','motorista.cpf as cpf_motorista','clientes.nome as nome_cliente')->where('fornecedor.nome',$fornecedor->getNome())->where('viagem.data_inicio','like','%'.$data.'%')->groupBy('viagem.id_viagem')->orderBy('viagem.horario_saida','desc')->paginate($paginas);
+
+        return $viagem;
+    }
+
+    public function filtrarMotorista($paginas, MotoristaCL $motorista,$data){
+        $data_minima = date("m-Y", strtotime($data));
+        // $data_minima = $viagem->getDataInicio();
+        $data_minima = '01-'.$data_minima;
+        $data_minima = date('Y-m-d',strtotime($data_minima));
+
+        $viagem = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->JOIN('clientes_viagem','clientes_viagem.id_viagem','=','viagem.id_viagem')->JOIN('clientes','clientes.id_cliente','=','clientes_viagem.id_cliente')->JOIN('fornecedor','fornecedor.id_fornecedor','=','viagem.id_fornecedor')->select('*','fornecedor.nome as nome_fornecedor','clientes.telefone as telefone_cl','clientes.cpf as cpf_cliente','motorista.nome as nome_motorista','motorista.cpf as cpf_motorista','clientes.nome as nome_cliente')->where('motorista.nome',$motorista->getNome())->where('viagem.data_inicio','like','%'.$data.'%')->groupBy('viagem.id_viagem')->orderBy('viagem.horario_saida','desc')->paginate($paginas);
+
+        return $viagem;
+    }
+
+    public function filtrarCliente($paginas, ClienteCL $cliente,$data){
+        $data_minima = date("m-Y", strtotime($data));
+        // $data_minima = $viagem->getDataInicio();
+        $data_minima = '01-'.$data_minima;
+        $data_minima = date('Y-m-d',strtotime($data_minima));
+
+        $viagem = DB::table("motorista_viagem")->JOIN("motorista", "motorista.id_motorista","=","motorista_viagem.id_motorista")->JOIN("veiculo","veiculo.id_veiculo","=","motorista_viagem.id_veiculo")->JOIN("viagem","viagem.id_viagem","=","motorista_viagem.id_viagem")->JOIN('clientes_viagem','clientes_viagem.id_viagem','=','viagem.id_viagem')->JOIN('clientes','clientes.id_cliente','=','clientes_viagem.id_cliente')->JOIN('fornecedor','fornecedor.id_fornecedor','=','viagem.id_fornecedor')->select('*','fornecedor.nome as nome_fornecedor','clientes.telefone as telefone_cl','clientes.cpf as cpf_cliente','motorista.nome as nome_motorista','motorista.cpf as cpf_motorista','clientes.nome as nome_cliente')->where('fornecedor.nome',$cliente->getNome())->where('viagem.data_inicio','like','%'.$data.'%')->groupBy('viagem.id_viagem')->orderBy('viagem.horario_saida','desc')->paginate($paginas);
+
+        return $viagem;
     }
 
     /**
@@ -516,6 +543,6 @@ class ViagemCL
 
 
 
-   
+
 }
 
